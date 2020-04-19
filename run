@@ -1,0 +1,4 @@
+#!/bin/bash
+
+javac -sourcepath src -d classes src/gol/Main.java
+java -Xmx12G -Xms8G -cp classes gol.Main

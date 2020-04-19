@@ -1,0 +1,90 @@
+
+  Cell fixed attributes: capacity, x, y, z
+
+  Cell variable attributes:
+    food:    []
+    agent:   
+    surface:
+
+  Agent:
+    - belongs to a cell
+    - fat:                # negative means hungry, positive means don't need food
+    - thirst:
+    - sickness:
+    - age:
+    - fertility:
+
+  variables: hunger, thirst, sickness, age, fatness, fertility
+
+organism has
+ - position
+ - fat
+
+behaviours:
+
+Reproduction
+ - based on energy store
+ - based on available food
+ - based on comptetition for food
+ - based on free space
+ - based on weather
+ - a/sexual
+ - number of offspring
+ - energy donation to each offspring
+ - DNA integrity (random check), correct insertions
+ - DNA integrity (random check), correct deletions
+ - DNA integrity (random check), correct in-place modifications
+
+Movement
+ - roots vs legs
+ - herding
+ - seek food
+ - avoid predators
+ - seek warmth
+ - seek terrain
+
+Vision
+ - each vision module adds vision
+
+EnergyAcquisition
+ - sunlight
+ - preying
+   - select prey based on appearance
+   - select prey based on size
+   - exclude prey based on appearance
+   -
+ - defence
+   - thick skin
+   - water storage
+   - spikes
+   - poison
+   - camouflage
+   - predator avoidance based on appearance
+   - predator avoidance based on movement
+   - predator avoidance based on size
+
+NutrientAcquisition
+ - roots
+ - preying
+
+DNA mutations
+ - change an entry
+ - delete an entry
+ - insert an entry
+
+
+---------------
+
+Nutrients:
+ - water    (nutrient transport, cooling)
+ - sodium   (required for movement behaviours)
+ - nitrogen (required for movement behaviours, digestion of prey)
+ - potassium
+ - phosphorus
+ - calcium   (plant structure, animal structure, movement, digestion)
+ - magnesium (essential for photosynthesis)
+ - chlorine  (digestion, plant structure)
+ - zinc
+ - iron      (nutrient transport)
+ - iodine    (growth, thinking)
+ - selenium  (remove excess nutrients)

@@ -1,0 +1,58 @@
+search:
+  - "src/**/*"
+  - run
+ignore:
+  - "\\.doc$"
+  - "\\.ods$"
+  - "\\.gz$"
+  - "\\.png$"
+  - "\\.gif$"
+  - "\\.zip$"
+  - "\\.jpg$"
+  - "\\.xcf$"
+  - "\\.pdf$"
+  - "\\.xls$"
+  - "\\.xlsx$"
+  - /select2/.*.js$
+stats:
+  nydp:
+    - "app/.*\\.nydp"
+  haml:
+    - "app/.*\\.haml"
+  code:
+    - "app/.*\\.(rb|erb)"
+    - "bin/.*"
+    - "lib/.*\\.(rb|rake)"
+    - "config/.*\\.rb"
+  test:
+    - "spec/.*"
+    - "test/.*"
+  i18n:
+    - "config/locales/.*\\.yml"
+  documentation:
+    - "app/documentation/.*\\.textile"
+  javascripts:
+    - ".*\\.js$"
+  java:
+    - ".*\\.java$"
+  sass:
+    - ".*\\.sass$"
+  packages:
+    - "config/cms/packages/.*"
+  config_yml:
+    - "config/.*\\.yml$"
+comments:
+  "\\.yml$":
+    - "^\\s*#"
+  "\\.haml$":
+    - "^\\s*-#"
+  "\\.rb$":
+    - "^\\s*#"
+  "\\.nydp$":
+    - "^\\s*;"
+  "\\.java$":
+    - "^\\s*//"
+  "\\.arc$":
+    - "^\\s*;"
+  "\\.c$":
+    - "^\\s*//"
