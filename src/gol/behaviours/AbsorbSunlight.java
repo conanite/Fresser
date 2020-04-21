@@ -5,6 +5,7 @@ import gol.*;
 
 public class AbsorbSunlight extends AbsorbCellEnergy implements Behaviour {
     public static final Gene gene = new Gene() {
+            public String name() { return "AbsorbSunlight"; }
             public void install(Organism org) {
                 org.behaviours.add(new AbsorbSunlight(org));
             }

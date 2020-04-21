@@ -1,5 +1,5 @@
 public enum ShowStyle {
-    leafiness, colour, energy, ground_energy, age;
+    colour, energy, ground_energy, age;
     private static ShowStyle[] options = values();
     public ShowStyle next() {
         return options[(ordinal() + 1) % options.length];

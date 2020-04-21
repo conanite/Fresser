@@ -19,7 +19,6 @@ public class Organism {
     public        double           reachLength   = 2.0;
     public        int              visionLength  = 0;
     public        double           energy        = 0.0;
-    public        double           leafiness     = 0.5;  // range 0.0 - 1.0 ;
     public        double           stockiness    = 0.5;  // constraint: must equal 1.0 - leafiness (set in #init)
     public        double           eating        = 0.0;  // range 0.0 - 1.0 ; derived from leafiness
     public        double           photosynth    = 0.0;  // range 0.0 - 1.0 ; derived from leafiness
@@ -53,7 +52,6 @@ public class Organism {
         init();
         this.watching = (id % 1000) == 0;
         // this.watching   = random.nextDouble() < u.config.watching();
-        // this.watching   = (leafiness > 0.6) && random.nextDouble() < 0.001;
     }
 
     public List<Cell> neighbours() {
@@ -74,7 +72,6 @@ public class Organism {
         s.put("C my_colour", "" + my_colour.getRed() + "," + my_colour.getGreen() + "," + my_colour.getBlue());
         s.put("C food_colour", "" + food_colour.getRed() + "," + food_colour.getGreen() + "," + food_colour.getBlue());
         s.put("C predator_colour", "" + predator_colour.getRed() + "," + predator_colour.getGreen() + "," + predator_colour.getBlue());
-        s.put("T leafiness", leafiness);
         s.put("T eating", eating);
         s.put("T photosynth", photosynth);
         s.put("F carrying babies", babies.size());
@@ -124,9 +121,6 @@ public class Organism {
     }
 
     public void init() {
-        this.eating     = (leafiness < 0.5) ? (1.0 - Math.pow(2.0 * leafiness        , 2.0)) : 0.0;
-        this.photosynth = (leafiness > 0.5) ? (1.0 - Math.pow(2.0 * (1.0 - leafiness), 2.0)) : 0.5;
-        this.stockiness = 1.0d - leafiness;
     }
 
     public boolean dying() {

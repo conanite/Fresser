@@ -5,6 +5,7 @@ import gol.behaviours.Fission;
 
 public class EnthusiasticFission {
     public static final Gene gene = new Gene() {
+            public String name() { return "EnthusiasticFission"; }
             public void install(Organism org) {
                 Fission f = (Fission)org.blackboard.get(Fission.name);
                 if (f == null) { return; }

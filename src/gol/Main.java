@@ -7,7 +7,6 @@ import java.util.*;
 import javax.swing.*;
 
 public class Main {
-
     static class Pointer extends MouseAdapter {
         public final ToroidalGridPanel panel;
         public final Info              info;

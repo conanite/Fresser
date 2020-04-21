@@ -11,6 +11,7 @@ public class Fission implements Behaviour {
     public static final String        name = "Fission";
     public static final DecimalFormat nf   = new DecimalFormat("#.##");
     public static final Gene          gene = new Gene() {
+            public String name() { return "Fission"; }
             public void install(Organism org) {
                 Fission b = new Fission(org);
                 org.behaviours.add(b);

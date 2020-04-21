@@ -252,7 +252,7 @@ public class Universe {
         int minA          = Integer.MAX_VALUE;
         int maxA          = Integer.MIN_VALUE;
         Map<Integer, Integer>   ages_by_log       = new HashMap<Integer, Integer>();
-        Map<Double, Integer>    leafinesses       = new HashMap<Double, Integer>();
+        // Map<Double, Integer>    leafinesses       = new HashMap<Double, Integer>();
         Map<String, Integer>    behaviour_counts  = new HashMap<String, Integer>();
         Map<String, Integer>    gene_counts       = new HashMap<String, Integer>();
         String                  predators         = "";
@@ -271,10 +271,10 @@ public class Universe {
                 DNA.stats(behaviour_counts, o.behaviours);
                 DNA.stats(gene_counts, o.genes);
 
-                double leafy20 = ((int)(o.leafiness * 10)) / 10.0;
-                Integer leafyc = leafinesses.get(leafy20);
-                if (leafyc == null) { leafyc = 0; }
-                leafinesses.put(leafy20, leafyc + 1);
+                // double leafy20 = ((int)(o.leafiness * 10)) / 10.0;
+                // Integer leafyc = leafinesses.get(leafy20);
+                // if (leafyc == null) { leafyc = 0; }
+                // leafinesses.put(leafy20, leafyc + 1);
             }
         }
 

@@ -6,6 +6,7 @@ import gol.behaviours.Fission;
 public class DefaultFission implements Fission.FissionBehaviour {
     public static final String        name = "DefaultFission";
     public static final Gene          gene = new Gene() {
+            public String name() { return "DefaultFission"; }
             public void install(Organism org) {
                 Fission f = (Fission)org.blackboard.get(Fission.name);
                 if (f == null) { return; }

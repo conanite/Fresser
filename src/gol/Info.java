@@ -36,15 +36,11 @@ class Info implements UniverseListener {
             Cell c = universe.getCell(lookingAt);
             Organism o = c.organism;
             if (o != null) {
-                if (o.leafiness < 0.5) {
-                    b.append(" predator");
-                } else if (o.leafiness > 0.5) {
-                    b.append(" food");
-                }
-                b.append(" " + (((int)(100 * o.leafiness)) / 100.0));
+                // b.append(" " + (((int)(100 * o.leafiness)) / 100.0));
                 b.append(" id#" + o.id);
                 b.append(" age " + o.age);
             }
+            b.append(" ground ").append(c.energy);
         }
         b.append(" showing ").append(panel.colourify);
         if (universe.stopped) b.append(" Stopped");

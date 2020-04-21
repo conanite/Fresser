@@ -8,6 +8,7 @@ import gol.behaviours.fission.*;
 
 public class DNA {
     public static final List<Gene> available = new ArrayList<Gene>();
+    public static final Set<String> names = new HashSet<String>();
 
     public static int mutations    = 0;
     public static int insertions   = 0;
@@ -26,17 +27,28 @@ public class DNA {
     // coronium
     // omnium
     // panacea
+
+    static void addGene(Gene g) {
+        available.add(g);
+        names.add(g.name());
+    }
+
     public static void init() {
-        available.add(AbsorbSunlight.gene);
-        available.add(AbsorbSunlight.gene);
-        available.add(AbsorbSunlight.gene);
-        available.add(AbsorbSunlight.gene);
-        available.add(AbsorbSunlight.gene);
-        available.add(AbsorbSunlight.gene);
-        available.add(Fission.gene);
-        // available.add(DefaultFission.gene);
-        available.add(ReluctantFission.gene);
-        available.add(EnthusiasticFission.gene);
+        addGene(AbsorbSunlight.gene);
+        addGene(AbsorbSunlight.gene);
+        addGene(AbsorbSunlight.gene);
+        addGene(AbsorbSunlight.gene);
+        addGene(AbsorbSunlight.gene);
+        addGene(AbsorbSunlight.gene);
+        addGene(Fission.gene);
+        addGene(ReluctantFission.gene);
+        addGene(EnthusiasticFission.gene);
+        addGene(Eat.gene);
+        addGene(Eat.eatMore);
+        addGene(Eat.eatLess);
+        addGene(Eat.greedy);
+        addGene(Eat.abstemious);
+
         // WaitBetweenBabies
         // DetectAvailableFood
         // SleepIfNoFood
@@ -168,7 +180,8 @@ public class DNA {
 
     public static Map<String, Integer> stats(Map<String, Integer> accum, Gene[] genes) {
         for (Gene g : genes) {
-            String n = g.getClass().getName();
+            String n = g.name();
+            if (n == null) { throw new RuntimeException("no name for gene " + g); }
             Integer c = accum.get(n);
             if (c == null) { c = 0; }
             accum.put(n, c + 1);

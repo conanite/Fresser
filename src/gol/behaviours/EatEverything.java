@@ -13,7 +13,7 @@ public class EatEverything extends Eat implements Behaviour {
     }
 
     public void tick(Organism org) {
-        if (org.leafiness > 0.5) return;
+        // if (org.leafiness > 0.5) return;
         for(Cell target : org.reach) {
             if (target.organism != null) {
                 eat(org, target.organism);
