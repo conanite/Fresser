@@ -1,13 +1,10 @@
 package gol.behaviours;
 
-import java.text.DecimalFormat;
-
 import java.util.*;
 import gol.*;
 
-public class Eat implements Behaviour {
+public class Eat extends SimpleBehaviour {
     public static final String        name = "Eat";
-    public static final DecimalFormat nf   = new DecimalFormat("#.##");
 
     public static final Gene gene = new Gene() {
             public String name() { return "Eat"; }
@@ -20,33 +17,19 @@ public class Eat implements Behaviour {
             }
         };
 
-    static final Changes more = (p, by) -> 1.0 - ((1.0 - p) * by);
-    static final Changes less = (p, by) -> p * by;
+    public static final Gene eatMore    = new Tweak<SimpleBehaviour>("EatMore"   , Eat.name, DNA.more, probc);
+    public static final Gene eatLess    = new Tweak<SimpleBehaviour>("EatLess"   , Eat.name, DNA.less, probc);
+    public static final Gene greedy     = new Tweak<SimpleBehaviour>("Greedy"    , Eat.name, DNA.more, nrgc );
+    public static final Gene abstemious = new Tweak<SimpleBehaviour>("Abstemious", Eat.name, DNA.less, nrgc );
 
-    static final PropertyChanger<Eat> probc = (eat, changer) -> eat.prob        = changer.change(eat.prob       , 0.8);
-    static final PropertyChanger<Eat> nrgc  = (eat, changer) -> eat.energyShare = changer.change(eat.energyShare, 0.8);
-
-    public static final Gene eatMore    = new Tweak<Eat>("EatMore"   , Eat.name, more, probc);
-    public static final Gene eatLess    = new Tweak<Eat>("EatLess"   , Eat.name, less, probc);
-    public static final Gene greedy     = new Tweak<Eat>("Greedy"    , Eat.name, more, nrgc );
-    public static final Gene abstemious = new Tweak<Eat>("Abstemious", Eat.name, less, nrgc );
-
-    public final Organism               org;
-    public       double                 prob               = 0.2;
-    public       double                 energyShare        = 0.2;
-    public       double                 attackEnergy       = 0.2;
+    public       double                 attackEnergy       = 0.4;
 
     public Eat(Organism org) {
-        this.org = org;
+        super(org);
     }
 
-    public double getProb()                 { return prob; }
-    public void   setProb(double p)         { prob = p;    }
-    public double getEnergyShare()          { return energyShare; }
-    public void   setEnergyShare(double p)  { energyShare = p;    }
-
     public String toString() {
-        return name + "(p=" + nf.format(prob) + " e=" + nf.format(energyShare) + ")";
+        return name + "(p=" + nf1.format(prob) + " e=" + nf1.format(energyShare) + ")";
     }
 
     public void tick() {

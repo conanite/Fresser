@@ -148,8 +148,8 @@ public class Organism {
 
     public void tick() {
         this.age++;
-        this.energy -= ((1 + genes.length     ) * 0.33);
-        this.energy -= ((1 + behaviours.size()) * 0.33);
+        this.energy -= 1.0 + (genes.length * universe.gene_cost);
+        // this.energy -= ((1 + behaviours.size()) * 0.33);
         healthCheck();
 
         if (dead) return;

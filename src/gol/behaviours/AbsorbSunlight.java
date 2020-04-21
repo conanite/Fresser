@@ -3,27 +3,50 @@ package gol.behaviours;
 import java.util.*;
 import gol.*;
 
-public class AbsorbSunlight extends AbsorbCellEnergy implements Behaviour {
+public class AbsorbSunlight extends SimpleBehaviour {
+    public static final String        name = "AbsorbSunlight";
+
     public static final Gene gene = new Gene() {
             public String name() { return "AbsorbSunlight"; }
             public void install(Organism org) {
-                org.behaviours.add(new AbsorbSunlight(org));
+                AbsorbSunlight b = (AbsorbSunlight)org.blackboard.get(AbsorbSunlight.name);
+                if (b != null) { return; }
+                b = new AbsorbSunlight(org);
+                org.behaviours.add(b);
+                org.blackboard.put(b.name, b);
             }
         };
+
+    public static final Gene growMore   = new Tweak<SimpleBehaviour>("GrowMore"   , AbsorbSunlight.name, DNA.more, probc);
+    public static final Gene growLess   = new Tweak<SimpleBehaviour>("GrowLess"   , AbsorbSunlight.name, DNA.less, probc);
+    public static final Gene growFaster = new Tweak<SimpleBehaviour>("GrowFaster" , AbsorbSunlight.name, DNA.more, nrgc );
+    public static final Gene growSlower = new Tweak<SimpleBehaviour>("GrowSlower" , AbsorbSunlight.name, DNA.less, nrgc );
+
 
     public AbsorbSunlight(Organism org) {
         super(org);
     }
 
     public String toString() {
-        return "AbsorbSunlight";
-    }
-
-    public void init(Organism org) {
-        // org.behaviours.add(this);
+        return name + "(p=" + nf1.format(prob) + " e=" + nf1.format(energyShare) + ")";
     }
 
     public void tick() {
-        absorbEnergyFrom(org.cell);
+        Cell cell = org.cell;
+
+        if (cell.energy < 1.0) return;
+
+        boolean doit = org.random.nextDouble() < prob;
+        if (!doit) return;
+
+        double avail   = cell.energy * energyShare;
+        double already = org.energy * energyShare;
+
+        double taking = (avail < already) ? avail : already; // take the smaller of me vs you
+
+
+        cell.energy         -= taking;
+
+        org.addEnergy("absorb energy from " + cell.coordinate, taking);
     }
 }

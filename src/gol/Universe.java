@@ -16,6 +16,7 @@ public class Universe {
     public final Cell[][]          cells;
     public final Cell[]            allCells;
     public final Config            config;
+    public final double            gene_cost;
     public       Instant           now;
     public final SplittableRandom  random             = new SplittableRandom(new Random().nextLong());
     public final List<Organism>    organisms          = new ArrayList<Organism>();
@@ -48,6 +49,7 @@ public class Universe {
         this.allCells       = new Cell[edge * edge];
         this.coordinates    = new Coordinate[edge][edge];
         this.allCoordinates = new ArrayList<Coordinate>();
+        this.gene_cost      = (config.tick_energy() / config.default_gene_length()) * 0.2;
 
         for (int i = 0; i < edge; i++) {
             for (int j = 0; j < edge; j++) {

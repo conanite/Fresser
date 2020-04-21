@@ -4,9 +4,11 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.awt.Color;
 import gol.behaviours.*;
-import gol.behaviours.fission.*;
 
 public class DNA {
+    public static final Changes more = (p, by) -> 1.0 - ((1.0 - p) * by);
+    public static final Changes less = (p, by) -> p * by;
+
     public static final List<Gene> available = new ArrayList<Gene>();
     public static final Set<String> names = new HashSet<String>();
 
@@ -40,14 +42,33 @@ public class DNA {
         addGene(AbsorbSunlight.gene);
         addGene(AbsorbSunlight.gene);
         addGene(AbsorbSunlight.gene);
+        addGene(AbsorbSunlight.gene);
+        addGene(AbsorbSunlight.gene);
+        addGene(AbsorbSunlight.gene);
+        addGene(AbsorbSunlight.gene);
+        addGene(AbsorbSunlight.gene);
+        addGene(AbsorbSunlight.gene);
+        addGene(AbsorbSunlight.gene);
+
         addGene(Fission.gene);
-        addGene(ReluctantFission.gene);
-        addGene(EnthusiasticFission.gene);
+        // addGene(ReluctantFission.gene);
+        // addGene(EnthusiasticFission.gene);
+        addGene(Fission.fissionMore   );
+        addGene(Fission.fissionLess   );
+        addGene(Fission.fissionBigger );
+        addGene(Fission.fissionSmaller);
+
         addGene(Eat.gene);
         addGene(Eat.eatMore);
         addGene(Eat.eatLess);
         addGene(Eat.greedy);
         addGene(Eat.abstemious);
+
+        addGene(AbsorbSunlight.growMore);
+        addGene(AbsorbSunlight.growLess);
+        addGene(AbsorbSunlight.growFaster);
+        addGene(AbsorbSunlight.growSlower);
+
 
         // WaitBetweenBabies
         // DetectAvailableFood

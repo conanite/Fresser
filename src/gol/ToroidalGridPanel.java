@@ -159,7 +159,8 @@ public class ToroidalGridPanel extends JPanel implements UniverseListener {
         // double log_lo_ground_energy_gap = Math.log(1.0d + base_ground_energy - universe.minGroundEnergy);
         // double log_hi_ground_energy_gap = Math.log(1.0d + universe.maxGroundEnergy - base_ground_energy);
 
-        double log_ground_energy_gap = Math.log(1.0d + universe.maxGroundEnergy - universe.minGroundEnergy);
+        // double log_ground_energy_gap = Math.log(1.0d + universe.maxGroundEnergy - universe.minGroundEnergy);
+        double log_ground_energy_gap = Math.log(1.0d + universe.maxGroundEnergy);
 
         Coordinate looking = lookingAt();
 

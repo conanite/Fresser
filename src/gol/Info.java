@@ -40,7 +40,7 @@ class Info implements UniverseListener {
                 b.append(" id#" + o.id);
                 b.append(" age " + o.age);
             }
-            b.append(" ground ").append(c.energy);
+            b.append(" ground ").append(Behaviour.nf2.format(c.energy));
         }
         b.append(" showing ").append(panel.colourify);
         if (universe.stopped) b.append(" Stopped");
