@@ -21,25 +21,26 @@ public class ToroidalGridPanel extends JPanel implements UniverseListener {
     private static final Color GREY   = new Color(0.5f , 0.5f , 0.5f , 1.0f);
 
     public final Universe universe;
-    public final      int cellSize;
-    public final      int pixels;
+    public  double        scale;
+    public  int           cellSize;
+    public  int           pixels;
     private BufferedImage image;
     private Coordinate    offset;
     private Point         pointingAt;
     public  Organism      watching;
-    public  String        colourify     = "leafiness";
+    public  String        colourify     = "colour";
     public  String        bgColour      = "dark";
     public  String        filter        = "all";
     public  boolean       redrawable    = true;
     public  int           lastRedrawAge = 2;
 
-    public ToroidalGridPanel(Universe u, int cellSize) {
+    public ToroidalGridPanel(Universe u, int scale) {
         super();
-        this.offset = u.getCoordinate(0, 0);
+        this.offset   = u.getCoordinate(0, 0);
         this.universe = u;
-        this.cellSize = cellSize;
-        this.pixels   = cellSize * u.edge;
-        this.image    = new BufferedImage(pixels, pixels, BufferedImage.TYPE_INT_ARGB);
+        this.scale    = scale;
+
+        setCellSize();
 
         u.addListener(this);
         setOpaque(false);
@@ -52,6 +53,24 @@ public class ToroidalGridPanel extends JPanel implements UniverseListener {
                     ToroidalGridPanel.this.repaint();
                 }
             }).start();
+    }
+
+    private void setCellSize() {
+        this.cellSize = (int)this.scale;
+        this.pixels   = cellSize * universe.edge;
+        this.image    = new BufferedImage(pixels, pixels, BufferedImage.TYPE_INT_ARGB);
+    }
+
+    public void zoomIn() {
+        this.scale *= 1.2;
+        setCellSize();
+        System.out.println("zoom in: scale is " + scale + ", cellsize is " + cellSize);
+    }
+
+    public void zoomOut() {
+        this.scale /= 1.2;
+        setCellSize();
+        System.out.println("zoom out: scale is " + scale + ", cellsize is " + cellSize);
     }
 
     public void universeTicked()    { requireRedraw(); redraw(); }
@@ -122,6 +141,10 @@ public class ToroidalGridPanel extends JPanel implements UniverseListener {
         return (float)(Math.log(1.0 + v - min) / log_gap);
     }
 
+    private float getLinearScaleValue(double min, double v, double max) {
+        return (float)((v - min) / (max - min));
+    }
+
     public void redraw() {
         if (!redrawable) return;
 
@@ -130,13 +153,13 @@ public class ToroidalGridPanel extends JPanel implements UniverseListener {
         Graphics    b = image.getGraphics();
 
         double base_ground_energy    = 2.0 * universe.config.tick_energy(); // arrange for this to always be 50%-grey (128,128,128)
-        double log_age_gap           = Math.log(1 + universe.maxAge - universe.minAge);
-        double log_energy_gap        = Math.log(1.0d + universe.maxE - universe.minE);
+        double log_age_gap           = Math.log(1.0d + universe.maxAge - universe.minAge);
+        double log_energy_gap        = Math.log(1.0d + universe.maxE   - universe.minE  );
 
-        double log_lo_ground_energy_gap = Math.log(1.0d + base_ground_energy - universe.minGroundEnergy);
-        double log_hi_ground_energy_gap = Math.log(1.0d + universe.maxGroundEnergy - base_ground_energy);
+        // double log_lo_ground_energy_gap = Math.log(1.0d + base_ground_energy - universe.minGroundEnergy);
+        // double log_hi_ground_energy_gap = Math.log(1.0d + universe.maxGroundEnergy - base_ground_energy);
 
-        // double log_ground_energy_gap = Math.log(1.0d + universe.maxGroundEnergy - universe.minGroundEnergy);
+        double log_ground_energy_gap = Math.log(1.0d + universe.maxGroundEnergy - universe.minGroundEnergy);
 
         Coordinate looking = lookingAt();
 
@@ -148,17 +171,19 @@ public class ToroidalGridPanel extends JPanel implements UniverseListener {
             if (colourify == "ground_energy") {
                 double e    = c.energy;
                 double scale = 0;
-                if (e < base_ground_energy) {
-                    scale = getLogScaleValue(universe.minGroundEnergy, e, log_lo_ground_energy_gap) / 2.0;
-                } else {
-                    scale = getLogScaleValue(base_ground_energy, e, log_hi_ground_energy_gap) / 2.0;
-                    scale = scale + 0.5;
-                }
+                // scale = getLogScaleValue(universe.minGroundEnergy, e, log_ground_energy_gap);
+                scale = getLinearScaleValue(universe.minGroundEnergy, e, universe.maxGroundEnergy);
+                // if (e < base_ground_energy) {
+                //     scale = getLogScaleValue(universe.minGroundEnergy, e, log_lo_ground_energy_gap) / 2.0;
+                // } else {
+                //     scale = getLogScaleValue(base_ground_energy, e, log_hi_ground_energy_gap) / 2.0;
+                //     scale = scale + 0.5;
+                // }
                 b.setColor(grey((float)scale));
-            } else if (org == null || (org.leafiness >= 0.5 && (filter == "predators")) || (org.leafiness < 0.5 && (filter == "photosynths"))) {
+            } else if (org == null) {
                 b.setColor(getBackgroundColour(c));
-            } else if (colourify == "leafiness") {
-                b.setColor(getLeafinessColour(org.leafiness));
+            // } else if (colourify == "leafiness") {
+            //     b.setColor(getLeafinessColour(org.leafiness));
             } else if (colourify == "energy") {
                 float scale =  getLogScaleValue(universe.minE, org.energy, log_energy_gap);
                 b.setColor(grey(scale));

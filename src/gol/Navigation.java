@@ -56,20 +56,24 @@ public class Navigation extends KeyAdapter {
         } else if (e.getKeyChar() == 's') {
             panel.universe.stopped    = !panel.universe.stopped;
         } else if (e.getKeyChar() == 'v') {
-            if (panel.colourify == "leafiness") {
+            if (panel.colourify == "age") {
                 panel.colourify = "colour";
             } else if (panel.colourify == "colour") {
                 panel.colourify = "energy";
             } else if (panel.colourify == "energy") {
                 panel.colourify = "ground_energy";
-            } else if (panel.colourify == "ground_energy") {
-                panel.colourify = "age";
             } else {
-                panel.colourify = "leafiness";
+                panel.colourify = "age";
+            // } else {
+            //     panel.colourify = "leafiness";
             }
             System.out.println("View is " + panel.colourify);
         } else if (e.getKeyChar() == 'R') {
             panel.universe.requestRestart();
+        } else if (e.getKeyChar() == 'z') {
+            panel.zoomIn();
+        } else if (e.getKeyChar() == 'Z') {
+            panel.zoomOut();
         } else {
             // System.out.println("Going Somewhere: " + e.getKeyChar());
         }
