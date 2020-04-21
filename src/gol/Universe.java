@@ -17,6 +17,7 @@ public class Universe {
     public final Cell[]            allCells;
     public final Config            config;
     public final double            gene_cost;
+    public final double            tick_energy;
     public       Instant           now;
     public final SplittableRandom  random             = new SplittableRandom(new Random().nextLong());
     public final List<Organism>    organisms          = new ArrayList<Organism>();
@@ -50,6 +51,7 @@ public class Universe {
         this.coordinates    = new Coordinate[edge][edge];
         this.allCoordinates = new ArrayList<Coordinate>();
         this.gene_cost      = (config.tick_energy() / config.default_gene_length()) * 0.2;
+        this.tick_energy    = config.tick_energy();
 
         for (int i = 0; i < edge; i++) {
             for (int j = 0; j < edge; j++) {
@@ -150,7 +152,8 @@ public class Universe {
                     cell.organism = null;
                 }
 
-                cell.energy = 0;
+                // cell.energy = 0;
+                cell.energy = tick_energy;
 
                 if (random.nextDouble() < config.genesis_prob()) {
                     Organism o        = new Organism(this, cell, DNA.randomGenes(random, config.default_gene_length()), random);
@@ -219,7 +222,8 @@ public class Universe {
 
             for (Cell here : allCells) {
                 here.energy /= 2.0;
-                here.energy += config.tick_energy();
+                here.energy += tick_energy;
+
                 if (here.energy < minGroundEnergy) minGroundEnergy = here.energy;
                 if (here.energy > maxGroundEnergy) maxGroundEnergy = here.energy;
             }
