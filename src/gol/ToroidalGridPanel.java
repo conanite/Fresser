@@ -155,11 +155,6 @@ public class ToroidalGridPanel extends JPanel implements UniverseListener {
         double base_ground_energy    = 2.0 * universe.config.tick_energy(); // arrange for this to always be 50%-grey (128,128,128)
         double log_age_gap           = Math.log(1.0d + universe.maxAge - universe.minAge);
         double log_energy_gap        = Math.log(1.0d + universe.maxE   - universe.minE  );
-
-        // double log_lo_ground_energy_gap = Math.log(1.0d + base_ground_energy - universe.minGroundEnergy);
-        // double log_hi_ground_energy_gap = Math.log(1.0d + universe.maxGroundEnergy - base_ground_energy);
-
-        // double log_ground_energy_gap = Math.log(1.0d + universe.maxGroundEnergy - universe.minGroundEnergy);
         double log_ground_energy_gap = Math.log(1.0d + universe.maxGroundEnergy);
 
         Coordinate looking = lookingAt();
@@ -172,14 +167,7 @@ public class ToroidalGridPanel extends JPanel implements UniverseListener {
             if (colourify == "ground_energy") {
                 double e    = c.energy;
                 double scale = 0;
-                // scale = getLogScaleValue(universe.minGroundEnergy, e, log_ground_energy_gap);
                 scale = getLinearScaleValue(universe.minGroundEnergy, e, universe.maxGroundEnergy);
-                // if (e < base_ground_energy) {
-                //     scale = getLogScaleValue(universe.minGroundEnergy, e, log_lo_ground_energy_gap) / 2.0;
-                // } else {
-                //     scale = getLogScaleValue(base_ground_energy, e, log_hi_ground_energy_gap) / 2.0;
-                //     scale = scale + 0.5;
-                // }
                 b.setColor(grey((float)scale));
             } else if (org == null) {
                 b.setColor(getBackgroundColour(c));
@@ -192,13 +180,33 @@ public class ToroidalGridPanel extends JPanel implements UniverseListener {
                 float scale =  getLogScaleValue(universe.minAge, org.age, log_age_gap);
                 b.setColor(grey(scale));
             } else {
-                b.setColor(org.my_colour);
+                float scale =  getLogScaleValue(universe.minAge, org.age, log_age_gap);
+                Color ca = grey(scale);
+                Color cb  = org.my_colour;
+
+                float dr = (float)(((ca.getRed()   ) + (cb.getRed()   * 2.0)) / (3.0 * 255.0));
+                float dg = (float)(((ca.getGreen() ) + (cb.getGreen() * 2.0)) / (3.0 * 255.0));
+                float db = (float)(((ca.getBlue()  ) + (cb.getBlue()  * 2.0)) / (3.0 * 255.0));
+
+                b.setColor(new Color(dr,dg,db));
             }
             b.fillRect(xc, yc, cellSize, cellSize);
 
             if (looking == c.coordinate) {
                 b.setColor(getNotBackgroundColour());
                 b.drawRect(xc, yc, cellSize, cellSize);
+            }
+        }
+
+
+        if (universe.age % universe.config.screenshot_interval() == 0) {
+            String index = Behaviour.int7.format(universe.age);
+            File outputfile = new File("life-" + universe.now + "-" + index + ".png");
+            try {
+                ImageIO.write(image, "png", outputfile);
+            } catch (IOException ioe) {
+                System.out.println("couldn't write file " + outputfile);
+                System.out.println(ioe);
             }
         }
     }
