@@ -27,14 +27,14 @@ class ImageCapture implements UniverseListener, Global {
         changeCount  = 0;
         lastSave     = -100;
         this.uni_id  = dtf.format(universe.now);
-        File dir     = new File("life-" + uni_id);
+        File dir     = new File("pix/life-" + uni_id);
         dir.mkdirs();
     }
 
     public void universeTicked()    {
         changeCount += universe.deadCount;
         changeCount += universe.newBabies;
-        if ((changeCount > image_save_cell_count) && (universe.age - lastSave > image_save_min_interval)) {
+        if ((changeCount > image_save_cell_count) && (universe.age - lastSave >= image_save_min_interval)) {
             changeCount = 0;
             saveImage();
         }
