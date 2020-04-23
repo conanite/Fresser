@@ -1,16 +1,13 @@
 package gol;
 
 import java.util.*;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 
-public class ToroidalGridPanel extends JPanel implements UniverseListener {
+public class ToroidalGridPanel extends JPanel implements UniverseListener, Global {
     private static final int WIDTH    = 640;
     private static final int HEIGHT   = 640;
     private static final Color BLANK  = new Color(0.0f, 0.0f, 1.0f, 1.0f);
@@ -42,7 +39,6 @@ public class ToroidalGridPanel extends JPanel implements UniverseListener {
 
         setCellSize();
 
-        u.addListener(this);
         setOpaque(false);
         setFocusable(true);
         blank();
@@ -145,6 +141,8 @@ public class ToroidalGridPanel extends JPanel implements UniverseListener {
         return (float)((v - min) / (max - min));
     }
 
+    public BufferedImage getImage() { return image; }
+
     public void redraw() {
         if (!redrawable) return;
 
@@ -195,18 +193,6 @@ public class ToroidalGridPanel extends JPanel implements UniverseListener {
             if (looking == c.coordinate) {
                 b.setColor(getNotBackgroundColour());
                 b.drawRect(xc, yc, cellSize, cellSize);
-            }
-        }
-
-
-        if (universe.age % universe.config.screenshot_interval() == 0) {
-            String index = Behaviour.int7.format(universe.age);
-            File outputfile = new File("life-" + universe.now + "-" + index + ".png");
-            try {
-                ImageIO.write(image, "png", outputfile);
-            } catch (IOException ioe) {
-                System.out.println("couldn't write file " + outputfile);
-                System.out.println(ioe);
             }
         }
     }

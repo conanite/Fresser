@@ -3,7 +3,7 @@ package gol;
 import java.time.*;
 import javax.swing.*;
 
-class Info implements UniverseListener {
+class Info implements UniverseListener, Global {
     public final JLabel label;
     public final Universe universe;
     private Coordinate    lookingAt;
@@ -40,7 +40,7 @@ class Info implements UniverseListener {
                 b.append(" id#" + o.id);
                 b.append(" age " + o.age);
             }
-            b.append(" ground ").append(Behaviour.nf2.format(c.energy));
+            b.append(" ground ").append(nf2.format(c.energy));
         }
         b.append(" showing ").append(panel.colourify);
         if (universe.stopped) b.append(" Stopped");

@@ -89,11 +89,7 @@ public class Universe {
             }
             System.out.print(".");
         }
-        System.out.println("cells initialised");
-
         System.out.println("Universe setup complete, about to start");
-        // pushTickable(this);
-        restart();
     }
 
     public void addListener(UniverseListener listener) { listeners.add(listener); }

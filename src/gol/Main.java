@@ -49,9 +49,14 @@ public class Main {
         Config           config = new Config();
         Universe              u = new Universe(config);
         ToroidalGridPanel panel = new ToroidalGridPanel(u, config.pixel_size());
+        ImageCapture    capture = new ImageCapture(u, panel);
         JLabel            label = new JLabel();
         Info               info = new Info(label, u, panel);
         // u.stopped = true;
+        u.addListener(panel);
+        u.addListener(capture);
+        u.restart();
+
 
         SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
