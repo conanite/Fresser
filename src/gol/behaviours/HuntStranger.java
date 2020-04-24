@@ -16,7 +16,6 @@ public class HuntStranger extends Approach implements Behaviour {
         // double strangeness = -Double.MAX_VALUE; // lower is tastier
         // Organism strangest = null;
 
-        // List<Organism> visible = org.visibleOrganisms();
         // if (visible.isEmpty()) return;
 
         // Collections.shuffle(visible);

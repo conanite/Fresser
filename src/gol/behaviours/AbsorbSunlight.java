@@ -44,7 +44,6 @@ public class AbsorbSunlight extends SimpleBehaviour {
 
         double taking = (avail < already) ? avail : already; // take the smaller of me vs you
 
-
         cell.energy         -= taking;
 
         org.addEnergy("absorb energy from " + cell.coordinate, taking);

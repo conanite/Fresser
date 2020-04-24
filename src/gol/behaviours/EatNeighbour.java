@@ -17,12 +17,12 @@ public class EatNeighbour extends Eat implements Behaviour {
 
         // org.addEnergy("cost of " + this, (org.energy * -0.1));
 
-        if (org.reachLength < 2) return;
+        // if (org.reach_length < 2) return;
 
         // System.out.println("reachLength is " + org.reachLength);
         // System.out.println("reach.size() is " + org.reach.size());
 
-        Cell dest = org.cell.pickANeighbour(org.reachLength, org.random.nextDouble());
+        Cell dest = org.cell.pickANeighbour(org.universe.reach_length, org.random.nextDouble());
 
         eat(org, dest.organism);
     }

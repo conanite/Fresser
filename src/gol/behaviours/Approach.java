@@ -5,7 +5,7 @@ import gol.*;
 
 public class Approach {
     public void approach(Organism from, Organism towards) {
-        if (towards == null || towards == from || towards.dead || from.reachLength < 1) return;
+        if (towards == null || towards == from || towards.dead || from.cell == null || towards.cell == null) return;
 
         double bestDistance = Double.MAX_VALUE;
         List<Cell> candidates = new ArrayList<Cell>();

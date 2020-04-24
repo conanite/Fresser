@@ -11,11 +11,10 @@ public class HuntAnything extends Approach implements Behaviour {
     }
 
     public void tick(Organism org) {
-        // if (org.random.nextDouble() > org.stockiness || org.reachLength < 1) return;
+        // if (org.random.nextDouble() > org.stockiness || org.universe.reach_length < 1) return;
 
         // List<Organism> targets = new ArrayList<Organism>();
 
-        // for(Cell c : org.vision) if (c.organism != null && c.organism != org) targets.add(c.organism);
 
         // if (targets.isEmpty()) return;
 
