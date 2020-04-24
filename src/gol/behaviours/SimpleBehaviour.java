@@ -19,8 +19,8 @@ public abstract class SimpleBehaviour implements Behaviour {
     static final PropertyChanger<SimpleBehaviour> nrgc  = (b, changer) -> b.energyShare = changer.change(b.energyShare, 0.8);
 
     public final Organism               org;
-    public       double                 prob           = 0.1;
-    public       double                 energyShare    = 0.1;
+    public       double                 prob           = 0.4;
+    public       double                 energyShare    = 0.4;
 
     public SimpleBehaviour(Organism org) {
         this.org = org;
