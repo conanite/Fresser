@@ -127,6 +127,7 @@ public class Organism implements Global {
     public boolean alive() { return !dead; }
 
     public void tick() {
+        double oldenergy = this.energy;
         this.age++;
         this.energy -= 1.0 + (genes.length * universe.gene_cost);
         // this.energy -= ((1 + behaviours.size()) * 0.33);
@@ -138,5 +139,6 @@ public class Organism implements Global {
         for(Behaviour b : behaviours) { b.tick(); }
 
         healthCheck();
+        this.gained = this.energy - oldenergy;
     }
 }
