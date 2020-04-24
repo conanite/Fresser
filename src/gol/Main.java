@@ -38,8 +38,6 @@ public class Main {
                 org.watching = true;
                 watching     = org;
                 System.out.println(MapToString.toString(org.status()));
-                Map<String, Integer> geneStats = DNA.stats(new HashMap<String, Integer>(), org.allBehaviours);
-                System.out.println(MapToString.toString(geneStats));
             }
         }
     }
