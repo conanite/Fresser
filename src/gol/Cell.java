@@ -50,7 +50,7 @@ public class Cell {
 
     // need to rethink, fuels uncontrolled growth
     public void absorb(Organism o) {
-        this.energy += o.energy;
+        if (o.energy > 0) { this.energy += o.energy; }
     }
 
     public Cell neighbour(int y, int x) {
