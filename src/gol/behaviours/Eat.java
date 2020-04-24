@@ -26,6 +26,7 @@ public class Eat extends SimpleBehaviour {
 
     public Eat(Organism org) {
         super(org);
+        prob = 0.5;
     }
 
     public String toString() {
@@ -36,21 +37,23 @@ public class Eat extends SimpleBehaviour {
         boolean doit = org.random.nextDouble() < prob;
         if (!doit) return;
 
-        Cell cell = org.cell.pickANeighbour(org.reachLength, org.random.nextDouble());
+        eat((Organism)org.blackboard.get("food"));
 
-        if (cell.organism == null) {
-            cell = org.cell.pickANeighbour(org.reachLength, org.random.nextDouble());
-        }
+        // Cell cell = org.cell.pickANeighbour(org.reachLength, org.random.nextDouble());
 
-        if (cell.organism == null) {
-            cell = org.cell.pickANeighbour(org.reachLength, org.random.nextDouble());
-        }
+        // if (cell.organism == null) {
+        //     cell = org.cell.pickANeighbour(org.reachLength, org.random.nextDouble());
+        // }
 
-        if (cell.organism == null) {
-            return;
-        }
+        // if (cell.organism == null) {
+        //     cell = org.cell.pickANeighbour(org.reachLength, org.random.nextDouble());
+        // }
 
-        eat(cell.organism);
+        // if (cell.organism == null) {
+        //     return;
+        // }
+
+        // eat(cell.organism);
     }
 
     public void eat(Organism prey) {
@@ -61,7 +64,7 @@ public class Eat extends SimpleBehaviour {
         if (prey.dead || prey.energy <= 0) return;
 
         double max0 = org.energy  * energyShare;
-        double max1 = prey.energy * energyShare;
+        double max1 = prey.energy;
 
         double taking = (max0 < max1) ? max0 : max1; // take the smaller of me vs you
 
