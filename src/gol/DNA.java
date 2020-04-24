@@ -45,10 +45,6 @@ public class DNA {
         addGene(AbsorbSunlight.gene);
         addGene(AbsorbSunlight.gene);
         addGene(AbsorbSunlight.gene);
-        addGene(AbsorbSunlight.gene);
-        addGene(AbsorbSunlight.gene);
-        addGene(AbsorbSunlight.gene);
-        addGene(AbsorbSunlight.gene);
 
         addGene(Fission.gene);
         // addGene(ReluctantFission.gene);
@@ -59,6 +55,7 @@ public class DNA {
         addGene(Fission.fissionSmaller);
 
         addGene(Eat.gene);
+        addGene(Eat.gene);
         addGene(Eat.eatMore);
         addGene(Eat.eatLess);
         addGene(Eat.greedy);
@@ -68,6 +65,11 @@ public class DNA {
         addGene(AbsorbSunlight.growLess);
         addGene(AbsorbSunlight.growFaster);
         addGene(AbsorbSunlight.growSlower);
+
+        addGene(FindFood.gene);
+        addGene(FindFood.gene);
+        addGene(FindFood.avoidFamilyMore);
+        addGene(FindFood.avoidFamilyLess);
 
 
         // WaitBetweenBabies
