@@ -117,7 +117,7 @@ public class DNA {
     }
 
     public static double mutateColorChannel(SplittableRandom random, double cc) {
-        double change = 1.0 + (0.2 * random.nextDouble() * random.nextDouble() * random.nextDouble());
+        double change = 1.0 + (0.1 * random.nextDouble() * random.nextDouble() * random.nextDouble());
         if (random.nextBoolean()) { // going up
             return 1.0 - ((1.0 - cc) / change);
         } else { // going down
@@ -126,9 +126,9 @@ public class DNA {
     }
 
     public static Color randomColor(SplittableRandom random) {
-        float r = (float)((random.nextDouble() * 0.6) + 0.4);
-        float g = (float)((random.nextDouble() * 0.6) + 0.4);
-        float b = (float)((random.nextDouble() * 0.6) + 0.4);
+        float r = (float)((random.nextDouble() * 0.4) + 0.5);
+        float g = (float)((random.nextDouble() * 0.4) + 0.5);
+        float b = (float)((random.nextDouble() * 0.4) + 0.5);
         return new Color(r, g, b, 1.0f);
     }
 
@@ -178,10 +178,40 @@ public class DNA {
         return result;
     }
 
+
+    public static Gene[] predefined(SplittableRandom random, int n) {
+        return new Gene[] {
+            AbsorbSunlight.gene,
+            AbsorbSunlight.gene,
+            AbsorbSunlight.gene,
+            AbsorbSunlight.gene,
+            AbsorbSunlight.gene,
+            Fission.gene,
+            Fission.fissionMore,
+            Fission.fissionMore,
+            Fission.fissionMore,
+            Fission.fissionMore,
+            FindFood.gene,
+            FindFood.avoidFamilyMore,
+            Eat.gene,
+            Eat.eatMore,
+            Eat.eatMore,
+            Eat.eatMore,
+            Eat.eatMore,
+            Eat.eatMore,
+            Eat.greedy,
+            Eat.greedy,
+            Eat.greedy,
+            Eat.greedy,
+            Eat.greedy,
+        };
+
+    }
+
     public static Gene[] randomGenes(SplittableRandom random, int n) {
-        // if (random.nextDouble() < 0.1) {
-        //     return predefined(random);
-        // }
+        if (random.nextDouble() < 0.001) {
+            return predefined(random, n);
+        }
 
         Gene[] gene = new Gene[n];
 
