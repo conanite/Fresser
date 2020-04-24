@@ -12,6 +12,10 @@ public class Tweak<B extends Behaviour> extends Named implements Gene {
         this.prop       = prop;
     }
 
+    public String toString() {
+        return "" + name() + " on " + targetName;
+    }
+
     public void install(Organism org) {
         B b = (B)org.blackboard.get(targetName);
         if (b == null) { return; }
