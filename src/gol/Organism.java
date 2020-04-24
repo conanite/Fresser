@@ -16,27 +16,14 @@ public class Organism implements Global {
     public        boolean          dead          = false;
     public        boolean          watching      = false;
     public        int              age           = 0;
-    public        double           reachLength   = 2.0;
-    public        int              visionLength  = 0;
     public        double           energy        = 0.0;
-    public        double           stockiness    = 0.5;  // constraint: must equal 1.0 - leafiness (set in #init)
-    public        double           eating        = 0.0;  // range 0.0 - 1.0 ; derived from leafiness
-    public        double           photosynth    = 0.0;  // range 0.0 - 1.0 ; derived from leafiness
+    public        double           gained        = 0.0;  // updated each tick to record net gain
 
-    public Color             food_colour;
-    public Color             my_colour;
-    public Color             predator_colour;
+    public        Color            food_colour;
+    public        Color            my_colour;
+    public        Color            predator_colour;
 
-    // reset after each tick
-    public List<Cell>          myReach; // places I can reach
-    public List<Cell>           vision   = new ArrayList<Cell>(); // places I can see
-
-    // trade-offs
-    // 1) limit the number of behaviours
-    // 2) cost of behaviours
-    public final List<Behaviour>     allBehaviours = new ArrayList<Behaviour>();
     public final List<Behaviour>     behaviours    = new ArrayList<Behaviour>();
-    public final List<Organism>      babies        = new ArrayList<Organism>();
     public final List<String>        history       = new ArrayList<String>();
     public final Map<String, Object> blackboard    = new HashMap<String, Object>();
 
@@ -49,32 +36,38 @@ public class Organism implements Global {
 
         for (Gene g : genes) { g.install(this); }
 
-        init();
         this.watching = (id % 1000) == 0;
         // this.watching   = random.nextDouble() < u.config.watching();
     }
 
     public List<Cell> neighbours() {
-        if (myReach == null) { myReach = cell.getNeighbours((int)reachLength); }
-        return myReach;
+        return cell.getNeighbours((int)universe.reach_length);
     }
 
     public Map<String, Object> status() {
+        String bs = "";
+        for (Behaviour b : behaviours) {
+            bs += "\n  " + b.toString();
+        }
+
+        String gs = "";
+        for (Gene g : genes) {
+            gs += "\n  " + g.name();
+        }
+
         Map<String, Object> s = new HashMap<String, Object>();
         s.put("id", id);
-        s.put("A energy", energy);
         s.put("A age", age);
         s.put("A dead", dead);
-        s.put("A reach", reachLength);
         s.put("A genes", genes.length);
         s.put("A behaviour count", behaviours.size());
-        s.put("A behaviours", behaviours.toString());
-        s.put("C my_colour", "" + my_colour.getRed() + "," + my_colour.getGreen() + "," + my_colour.getBlue());
-        s.put("C food_colour", "" + food_colour.getRed() + "," + food_colour.getGreen() + "," + food_colour.getBlue());
-        s.put("C predator_colour", "" + predator_colour.getRed() + "," + predator_colour.getGreen() + "," + predator_colour.getBlue());
-        s.put("T eating", eating);
-        s.put("T photosynth", photosynth);
-        s.put("F carrying babies", babies.size());
+        s.put("B behaviours", bs);
+        s.put("C genes", gs);
+        s.put("E energy", nf2.format(energy));
+        s.put("E new energy", nf2.format(gained));
+        s.put("F my_colour", "" + my_colour.getRed() + "," + my_colour.getGreen() + "," + my_colour.getBlue());
+        s.put("F food_colour", "" + food_colour.getRed() + "," + food_colour.getGreen() + "," + food_colour.getBlue());
+        s.put("F predator_colour", "" + predator_colour.getRed() + "," + predator_colour.getGreen() + "," + predator_colour.getBlue());
         if (cell != null) { s.put("coordinates", cell.coordinate); }
         return s;
     }
@@ -99,10 +92,6 @@ public class Organism implements Global {
         return colourdsq(food_colour, other.my_colour);
     }
 
-    public String geneNames() {
-        return allBehaviours.stream().map( g -> g.toString() ).collect( Collectors.joining("\n") );
-    }
-
     public void addHistory(String what) {
         history.add(what);
     }
@@ -114,17 +103,8 @@ public class Organism implements Global {
         return this.energy;
     }
 
-    public List<Organism> visibleOrganisms() {
-        List<Organism> oo = new ArrayList<Organism>();
-        for(Cell c : vision) if (c.organism != null && c != cell) oo.add(c.organism);
-        return oo;
-    }
-
-    public void init() {
-    }
-
     public boolean dying() {
-        return energy <= 0;
+        return energy <= 1;
     }
 
     public void healthCheck() {
