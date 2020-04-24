@@ -43,7 +43,7 @@ class ImageCapture implements UniverseListener, Global {
     private void saveImage() {
         lastSave = universe.age;
         String index = int7.format(universe.age);
-        File outputfile = new File("life-" + uni_id + "/" + index + ".png");
+        File outputfile = new File("pix/life-" + uni_id + "/" + index + ".png");
         try {
             ImageIO.write(panel.getImage(), "png", outputfile);
         } catch (IOException ioe) {
