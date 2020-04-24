@@ -39,14 +39,14 @@ public class Fission extends SimpleBehaviour {
         doit = org.age % fertilityCycle == 0;
         if (!doit) return;
 
-        Cell cell = org.cell.pickANeighbour(org.reachLength, org.random.nextDouble());
+        Cell cell = org.cell.pickANeighbour(org.universe.reach_length, org.random.nextDouble());
 
         if (cell.organism != null) {
-            cell = org.cell.pickANeighbour(org.reachLength, org.random.nextDouble());
+            cell = org.cell.pickANeighbour(org.universe.reach_length, org.random.nextDouble());
         }
 
         if (cell.organism != null) {
-            cell = org.cell.pickANeighbour(org.reachLength, org.random.nextDouble());
+            cell = org.cell.pickANeighbour(org.universe.reach_length, org.random.nextDouble());
         }
 
         if (cell.organism != null) {

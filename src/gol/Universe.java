@@ -19,6 +19,7 @@ public class Universe {
     public final double            gene_cost;
     public final double            tick_energy;
     public       Instant           now;
+    public final double            reach_length;
     public final SplittableRandom  random             = new SplittableRandom(new Random().nextLong());
     public final List<Organism>    organisms          = new ArrayList<Organism>();
     public final List<Organism>    babies             = new ArrayList<Organism>();
@@ -50,8 +51,9 @@ public class Universe {
         this.allCells       = new Cell[edge * edge];
         this.coordinates    = new Coordinate[edge][edge];
         this.allCoordinates = new ArrayList<Coordinate>();
-        this.gene_cost      = (config.tick_energy() / config.default_gene_length()) * 0.2;
         this.tick_energy    = config.tick_energy();
+        this.reach_length   = config.reach_length();
+        this.gene_cost      = (tick_energy / config.default_gene_length()) * 0.2;
 
         for (int i = 0; i < edge; i++) {
             for (int j = 0; j < edge; j++) {
@@ -71,7 +73,7 @@ public class Universe {
         Collections.sort(allCoordinates);
         System.out.println("coordinates sorted");
 
-        for(double i = 0.1; i < 4.0; i+=0.1) {
+        for(double i = 0.1; i < 11.0; i+=0.1) { // allowing max distance 10
             final double j = i;
             Predicate<Coordinate> byDistance = cell -> cell.len <= j;
             List<Coordinate> result = allCoordinates.stream().filter(byDistance).collect(Collectors.toList());
@@ -79,9 +81,8 @@ public class Universe {
             // System.out.println("at radius " + j + " there are " + (result.size() - 1) + " neighbours");
         }
 
-        System.out.println("neighbours precalculated");
 
-        List<Coordinate> nearby = allCoordinates.subList(1, 100);
+        List<Coordinate> nearby = allCoordinates.subList(1, 315);
 
         for (int i = 0; i < edge; i++) {
             for (int j = 0; j < edge; j++) {
@@ -310,7 +311,7 @@ public class Universe {
         StringBuffer b = new StringBuffer();
         for (Organism o : organisms) {
             b.append(o.toString()).append(" ").append(o.age).append("\n");
-            for (Behaviour bh : o.allBehaviours) {
+            for (Behaviour bh : o.behaviours) {
                 b.append("  ").append(bh).append("\n");
             }
         }

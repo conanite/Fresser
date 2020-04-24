@@ -5,9 +5,9 @@ import java.util.*;
 public class Cell {
     private final    Universe   universe;
     public  final    Coordinate coordinate;
-    public  final    List<Cell> neighbours = new ArrayList<Cell>(3000); // sorted by distance from this
-    public  final    List<Cell>[] neighbourListsByDistance = (List<Cell>[])(new List[400]);
-    public  double   energy     = 0;
+    public  final    List<Cell> neighbours                 = new ArrayList<Cell>(315); // enough for d=10 (10^2 * 3.14)
+    public  final    List<Cell>[] neighbourListsByDistance = (List<Cell>[])(new List[40]);
+    public  double   energy                                = 0.0d;
     public  Organism organism;
 
     public Cell(Universe u, Coordinate co) {
