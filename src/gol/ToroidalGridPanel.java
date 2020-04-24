@@ -179,14 +179,15 @@ public class ToroidalGridPanel extends JPanel implements UniverseListener, Globa
                 b.setColor(grey(scale));
             } else {
                 float scale =  getLogScaleValue(universe.minAge, org.age, log_age_gap);
-                Color ca = grey(scale);
-                Color cb  = org.my_colour;
+                // float negscale = 1.0f - scale;
+                // Color ca = grey(scale);
+                // Color cb  = org.my_colour;
 
-                float dr = (float)(((ca.getRed()   ) + (cb.getRed()   * 2.0)) / (3.0 * 255.0));
-                float dg = (float)(((ca.getGreen() ) + (cb.getGreen() * 2.0)) / (3.0 * 255.0));
-                float db = (float)(((ca.getBlue()  ) + (cb.getBlue()  * 2.0)) / (3.0 * 255.0));
+                // float dr = (float)(((ca.getRed()   * scale) + (cb.getRed()   * negscale)) / 255.0);
+                // float dg = (float)(((ca.getGreen() * scale) + (cb.getGreen() * negscale)) / 255.0);
+                // float db = (float)(((ca.getBlue()  * scale) + (cb.getBlue()  * negscale)) / 255.0);
 
-                b.setColor(new Color(dr,dg,db));
+                b.setColor(Appearance.darkify(org.my_colour, scale));
             }
             b.fillRect(xc, yc, cellSize, cellSize);
 
