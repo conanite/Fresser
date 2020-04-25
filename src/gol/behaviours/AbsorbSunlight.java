@@ -6,10 +6,14 @@ import gol.*;
 public class AbsorbSunlight extends SimpleBehaviour {
     public static final String        name = "AbsorbSunlight";
 
+    public static AbsorbSunlight get(Organism org) {
+        return (AbsorbSunlight)org.blackboard.get(AbsorbSunlight.name);
+    }
+
     public static final Gene gene = new Gene() {
             public String name() { return "AbsorbSunlight"; }
             public void install(Organism org) {
-                AbsorbSunlight b = (AbsorbSunlight)org.blackboard.get(AbsorbSunlight.name);
+                AbsorbSunlight b = AbsorbSunlight.get(org);
                 if (b != null) { return; }
                 b = new AbsorbSunlight(org);
                 org.behaviours.add(b);
