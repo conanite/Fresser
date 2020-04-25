@@ -6,7 +6,7 @@ import java.time.*;
 import java.util.*;
 import javax.swing.*;
 
-public class Main {
+public class Main implements Global {
     static class Pointer extends MouseAdapter implements Global {
         public final ToroidalGridPanel panel;
         public final Info              info;
@@ -48,8 +48,7 @@ public class Main {
         Universe              u = new Universe(config);
         ToroidalGridPanel panel = new ToroidalGridPanel(u, config.pixel_size());
         ImageCapture    capture = new ImageCapture(u, panel);
-        JLabel            label = new JLabel();
-        Info               info = new Info(label, u, panel);
+        Info               info = new Info(u, panel);
         // u.stopped = true;
         u.addListener(panel);
         u.addListener(capture);
@@ -67,9 +66,17 @@ public class Main {
                     panel.addMouseListener(pointer);
                     panel.addMouseMotionListener(pointer);
 
-                    frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
-                    frame.getContentPane().add(info.label);
-                    frame.getContentPane().add(panel);
+                    Box content = Box.createHorizontalBox();
+                    info.panel.setAlignmentY(JPanel.TOP_ALIGNMENT);
+                    panel.setAlignmentY(JPanel.TOP_ALIGNMENT);
+
+                    content.setOpaque(true);
+                    content.setAlignmentY(JPanel.TOP_ALIGNMENT);
+                    content.add(info.panel);
+                    content.add(panel);
+                    content.setBackground(new Color(192,192,192));
+
+                    frame.getContentPane().add(content);
                     frame.pack();
                     frame.setVisible(true);
                 }
