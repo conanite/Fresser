@@ -32,6 +32,10 @@ public class FindFood extends SimpleBehaviour {
         return name + "(ft=" + nf1.format(familyThreshold) + ")";
     }
 
+    public String inspect() {
+        return name + "(ft=" + nf1.format(familyThreshold) + " eat=" + eat + ")";
+    }
+
     public void tick() {
         Organism prey = (Organism)org.blackboard.get("food");
 

@@ -33,6 +33,10 @@ public class Eat extends SimpleBehaviour {
         return name + "(p=" + nf1.format(prob) + " e=" + nf1.format(energyShare) + ")";
     }
 
+    public String inspect() {
+        return name + "(p=" + nf1.format(prob) + " e=" + nf1.format(energyShare) + " food=" + food + ")";
+    }
+
     public void tick() {
         boolean doit = org.random.nextDouble() < prob;
         if (!doit) return;

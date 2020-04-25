@@ -47,7 +47,7 @@ public class Organism implements Global {
     public Map<String, Object> status() {
         String bs = "";
         for (Behaviour b : behaviours) {
-            bs += "\n  " + b.toString();
+            bs += "\n  " + b.inspect();
         }
 
         String gs = "";
