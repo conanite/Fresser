@@ -2,7 +2,7 @@ package gol;
 
 import java.awt.Color;
 
-class Appearance {
+public class Appearance {
     public static float norm(float f) {
         if (f < 0) return 0;
         if (f > 1) return 1;
