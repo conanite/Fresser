@@ -103,7 +103,7 @@ public class DNA {
     }
 
     public static double mutateColorChannel(SplittableRandom random, double cc) {
-        double change = 1.0 + (0.1 * random.nextDouble() * random.nextDouble() * random.nextDouble());
+        double change = 1.0 + (0.05 * random.nextDouble() * random.nextDouble() * random.nextDouble());
         if (random.nextBoolean()) { // going up
             return 1.0 - ((1.0 - cc) / change);
         } else { // going down

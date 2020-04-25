@@ -34,7 +34,7 @@ public class FindFood extends SimpleBehaviour {
     public static final Gene avoidFamilyLess = new Tweak<FindFood>("avoidFamilyLess"   , name, DNA.less, fussc);
 
     private final Eat eat;
-    public double familyThreshold = 0.05;
+    public double familyThreshold = 0.02;
 
     public FindFood(Organism org, Eat eat) {
         super(org);
