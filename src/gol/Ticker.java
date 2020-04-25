@@ -22,7 +22,21 @@ class Ticker implements Runnable {
                     while (u.paused) Thread.sleep(50);
 
                     Organism item = u.organisms.get(i);
+                    if (item != null) { item.pretick(); }
+                }
+
+                for (int i = 0 ; i < u.organisms.size() ; i++) {
+                    while (u.paused) Thread.sleep(50);
+
+                    Organism item = u.organisms.get(i);
                     if (item != null) { item.tick(); }
+                }
+
+                for (int i = 0 ; i < u.organisms.size() ; i++) {
+                    while (u.paused) Thread.sleep(50);
+
+                    Organism item = u.organisms.get(i);
+                    if (item != null) { item.posttick(); }
                 }
                 u.nextGeneration();
             }

@@ -17,7 +17,8 @@ public class Organism implements Tickable, Global {
     public        boolean          watching      = false;
     public        int              age           = 0;
     public        double           energy        = 0.0;
-    public        double           gained        = 0.0;  // updated each tick to record net gain
+    public        double           oldenergy     = 0.0;  // updated each tick to record net gain
+    public        double           newenergy     = 0.0;  // updated each tick to record net gain
 
     public        Color            food_colour;
     public        Color            my_colour;
@@ -64,7 +65,7 @@ public class Organism implements Tickable, Global {
         s.put("B behaviours", bs);
         s.put("C genes", gs);
         s.put("E energy", nf2.format(energy));
-        s.put("E new energy", nf2.format(gained));
+        s.put("E new energy", nf2.format(newenergy));
         s.put("F my_colour", "" + my_colour.getRed() + "," + my_colour.getGreen() + "," + my_colour.getBlue());
         s.put("F food_colour", "" + food_colour.getRed() + "," + food_colour.getGreen() + "," + food_colour.getBlue());
         s.put("F predator_colour", "" + predator_colour.getRed() + "," + predator_colour.getGreen() + "," + predator_colour.getBlue());
@@ -126,8 +127,15 @@ public class Organism implements Tickable, Global {
 
     public boolean alive() { return !dead; }
 
+    public void pretick() {
+        this.oldenergy = this.energy;
+    }
+
+    public void posttick() {
+        this.newenergy = energy - oldenergy;
+    }
+
     public void tick() {
-        double oldenergy = this.energy;
         this.age++;
         this.energy -= 1.0 + (genes.length * universe.gene_cost);
         // this.energy -= ((1 + behaviours.size()) * 0.33);
@@ -139,6 +147,5 @@ public class Organism implements Tickable, Global {
         for(Behaviour b : behaviours) { b.tick(); }
 
         healthCheck();
-        this.gained = this.energy - oldenergy;
     }
 }
