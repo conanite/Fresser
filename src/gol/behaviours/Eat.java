@@ -6,14 +6,21 @@ import gol.*;
 public class Eat extends SimpleBehaviour {
     public static final String        name = "Eat";
 
+    public static Eat get(Organism org) {
+        return (Eat)org.blackboard.get(Eat.name);
+    }
+
     public static final Gene gene = new Gene() {
             public String name() { return "Eat"; }
             public void install(Organism org) {
-                Eat b = (Eat)org.blackboard.get(Eat.name);
+                Eat b = Eat.get(org);
                 if (b != null) { return; }
                 b = new Eat(org);
                 org.behaviours.add(b);
                 org.blackboard.put(b.name, b);
+
+                Gene ff = (Gene)org.blackboard.get(FindFood.tmp);
+                if (ff != null) { ff.install(org); }
             }
         };
 
@@ -22,11 +29,12 @@ public class Eat extends SimpleBehaviour {
     public static final Gene greedy     = new Tweak<SimpleBehaviour>("Greedy"    , Eat.name, DNA.more, nrgc );
     public static final Gene abstemious = new Tweak<SimpleBehaviour>("Abstemious", Eat.name, DNA.less, nrgc );
 
-    public       double                 attackEnergy       = 0.4;
+    public Organism food;
 
     public Eat(Organism org) {
         super(org);
-        prob = 0.5;
+        prob = 0.66;
+        energyShare = 0.66;
     }
 
     public String toString() {
@@ -34,34 +42,25 @@ public class Eat extends SimpleBehaviour {
     }
 
     public String inspect() {
-        return name + "(p=" + nf1.format(prob) + " e=" + nf1.format(energyShare) + " food=" + food + ")";
+        if (food != null) {
+            return name + "(p=" + nf1.format(prob) + " e=" + nf1.format(energyShare) + " food=" + food + " food address=" + food.cell + ")";
+        } else {
+            return name + "(p=" + nf1.format(prob) + " e=" + nf1.format(energyShare) + " food=" + food + ")";
+        }
     }
 
     public void tick() {
         boolean doit = org.random.nextDouble() < prob;
         if (!doit) return;
 
-        eat((Organism)org.blackboard.get("food"));
-
-        // Cell cell = org.cell.pickANeighbour(org.reachLength, org.random.nextDouble());
-
-        // if (cell.organism == null) {
-        //     cell = org.cell.pickANeighbour(org.reachLength, org.random.nextDouble());
-        // }
-
-        // if (cell.organism == null) {
-        //     cell = org.cell.pickANeighbour(org.reachLength, org.random.nextDouble());
-        // }
-
-        // if (cell.organism == null) {
-        //     return;
-        // }
-
-        // eat(cell.organism);
+        eat(food);
     }
 
     public void eat(Organism prey) {
         if (prey == org || prey == null || prey.dead) return;
+
+        prey = Attack.attack(org, prey);
+        if (prey == null) return;
 
         prey.healthCheck();
 

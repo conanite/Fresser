@@ -5,13 +5,24 @@ import gol.*;
 
 public class FindFood extends SimpleBehaviour {
     public static final String        name = "FindFood";
+    public static final String        tmp  = "FindFoodGeneInWaiting";
+
+    public static FindFood get(Organism org) {
+        return (FindFood)org.blackboard.get(FindFood.name);
+    }
 
     public static final Gene gene = new Gene() {
             public String name() { return FindFood.name; }
             public void install(Organism org) {
-                FindFood b = (FindFood)org.blackboard.get(name());
+                Eat eat = Eat.get(org);
+                if (eat == null) {
+                    org.blackboard.put(FindFood.tmp, this);
+                    return;
+                }
+
+                FindFood b = FindFood.get(org);
                 if (b != null) { return; }
-                b = new FindFood(org);
+                b = new FindFood(org, eat);
                 org.behaviours.add(b);
                 org.blackboard.put(name(), b);
             }
@@ -22,10 +33,12 @@ public class FindFood extends SimpleBehaviour {
     public static final Gene avoidFamilyMore = new Tweak<FindFood>("avoidFamilyMore"   , name, DNA.more, fussc);
     public static final Gene avoidFamilyLess = new Tweak<FindFood>("avoidFamilyLess"   , name, DNA.less, fussc);
 
-    public double familyThreshold = 0.1;
+    private final Eat eat;
+    public double familyThreshold = 0.05;
 
-    public FindFood(Organism org) {
+    public FindFood(Organism org, Eat eat) {
         super(org);
+        this.eat = eat;
     }
 
     public String toString() {
@@ -37,14 +50,14 @@ public class FindFood extends SimpleBehaviour {
     }
 
     public void tick() {
-        Organism prey = (Organism)org.blackboard.get("food");
+        Organism prey = eat.food;
 
         if (prey != null && prey.alive()) return;
 
         for (int i = 0; i < 3; i++) {
             prey = findNeighbour(org);
             if (prey != null && !family(prey)) {
-                org.blackboard.put("food", prey);
+                eat.food = prey;
                 return;
             }
         }
