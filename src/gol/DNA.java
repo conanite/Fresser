@@ -47,69 +47,55 @@ public class DNA {
         addGene(AbsorbSunlight.gene);
 
         addGene(Fission.gene);
-        // addGene(ReluctantFission.gene);
-        // addGene(EnthusiasticFission.gene);
+        addGene(Fission.gene);
+        addGene(Fission.fissionMore   );
         addGene(Fission.fissionMore   );
         addGene(Fission.fissionLess   );
+        addGene(Fission.fissionLess   );
         addGene(Fission.fissionBigger );
+        addGene(Fission.fissionBigger );
+        addGene(Fission.fissionSmaller);
         addGene(Fission.fissionSmaller);
 
         addGene(Eat.gene);
         addGene(Eat.gene);
+        addGene(Eat.gene);
+        addGene(Eat.gene);
+        addGene(Eat.eatMore);
         addGene(Eat.eatMore);
         addGene(Eat.eatLess);
+        addGene(Eat.eatLess);
         addGene(Eat.greedy);
+        addGene(Eat.greedy);
+        addGene(Eat.abstemious);
         addGene(Eat.abstemious);
 
         addGene(AbsorbSunlight.growMore);
+        addGene(AbsorbSunlight.growMore);
+        addGene(AbsorbSunlight.growLess);
         addGene(AbsorbSunlight.growLess);
         addGene(AbsorbSunlight.growFaster);
+        addGene(AbsorbSunlight.growFaster);
+        addGene(AbsorbSunlight.growSlower);
         addGene(AbsorbSunlight.growSlower);
 
         addGene(FindFood.gene);
         addGene(FindFood.gene);
+        addGene(FindFood.gene);
+        addGene(FindFood.gene);
+        addGene(FindFood.avoidFamilyMore);
         addGene(FindFood.avoidFamilyMore);
         addGene(FindFood.avoidFamilyLess);
+        addGene(FindFood.avoidFamilyLess);
 
+        // addGene(Attack.gene);
+        // addGene(Attack.attackMore);
+        // addGene(Attack.attackLess);
 
-        // WaitBetweenBabies
-        // DetectAvailableFood
-        // SleepIfNoFood
-        // Sleep
-        // FamilyStricter
-        // FamilyLooser
-        // IdentifyFamily
-        // ShareWithFamily
+        // addGene(Defence.gene);
+        // addGene(Defence.defendMore);
+        // addGene(Defence.defendLess);
 
-        // behaviours.put("Bg0", new Bigger());
-        // behaviours.put("Ea", new EatNeighbour());
-        // behaviours.put("Es0", new EatSelectively());
-        // behaviours.put("Ee", new AvoidEatingWhenNotHungry());
-        // behaviours.put("Ef", new AvoidEatingFamily());
-        // behaviours.put("Ei0", new GatherCandidatePrey());
-        // behaviours.put("Ej", new HungerCheck());
-        // behaviours.put("Ep", new PreferEatingPrey());
-        // behaviours.put("Ee00", new EatEverything());
-        // behaviours.put("Eha" , new HuntAnything());
-        // behaviours.put("Ehf0", new HuntFood());
-        // behaviours.put("Ehs0", new HuntStranger());
-        // behaviours.put("Erp", new RunFromPredator());
-        // behaviours.put("Ma", new RandomMovement());
-        // behaviours.put("Mb", new Stockiness());
-        // behaviours.put("Ff0", new Fission());
-        // behaviours.put("Finh0", new InhibitFertilityWhenCrowded());
-        // behaviours.put("Finh1", new InhibitFertilityWhenAlreadyPregnant());
-        // behaviours.put("Finh2", new InhibitFertilityWhenNotEnoughEnergyForChildren());
-        // behaviours.put("Fr", new ReproduceReluctantly());
-        // behaviours.put("Fs", new MakeSmallerBabies());
-        // behaviours.put("Ft", new ReproduceEnthusiastically());
-        // behaviours.put("Fpub", new WaitForPuberty());
-        // behaviours.put("Pa", new AbsorbSunlight());
-        // behaviours.put("Pc", new Leafiness());
-        // behaviours.put("Pz", new AbsorbNeighbourCellEnergy());
-        // behaviours.put("Na", new Nothing());
-        // behaviours.put("Ra", new Reach());
-        // behaviours.put("Va", new Vision());
     }
 
     public static Gene nextLetter(SplittableRandom random) {
@@ -191,25 +177,36 @@ public class DNA {
             Fission.fissionMore,
             Fission.fissionMore,
             Fission.fissionMore,
+            Fission.fissionMore,
+            Fission.fissionMore,
+            FindFood.gene,
+            FindFood.gene,
             FindFood.gene,
             FindFood.avoidFamilyMore,
+            FindFood.avoidFamilyMore,
+            FindFood.avoidFamilyMore,
+            Eat.gene,
+            Eat.gene,
             Eat.gene,
             Eat.eatMore,
             Eat.eatMore,
             Eat.eatMore,
             Eat.eatMore,
-            Eat.eatMore,
             Eat.greedy,
             Eat.greedy,
             Eat.greedy,
             Eat.greedy,
-            Eat.greedy,
+            Attack.gene,
+            Attack.attackMore,
+            Attack.attackMore,
+            Attack.attackMore,
+            Attack.attackMore,
         };
 
     }
 
     public static Gene[] randomGenes(SplittableRandom random, int n) {
-        if (random.nextDouble() < 0.001) {
+        if (random.nextDouble() < 0.0001) {
             return predefined(random, n);
         }
 
