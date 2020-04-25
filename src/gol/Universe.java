@@ -38,12 +38,7 @@ public class Universe implements Global {
     public int    newBabies;
     public int    minAge;
     public int    maxAge;
-    public int    minG;
-    public int    maxG;
-    // public int    minReach;
-    // public int    maxReach;
-    public double minGroundEnergy;
-    public double maxGroundEnergy;
+
     public double minE       = Double.MAX_VALUE;
     public double maxE       = -Double.MAX_VALUE;
     public double totalE     = 0.0d;
@@ -190,15 +185,11 @@ public class Universe implements Global {
 
             this.minAge          = Integer.MAX_VALUE;
             this.maxAge          = 0;
-            this.minGroundEnergy = Double.MAX_VALUE;
-            this.maxGroundEnergy = -Double.MAX_VALUE;
             this.minE            = Double.MAX_VALUE;
             this.maxE            = -Double.MAX_VALUE;
             this.totalE          = 0.0d;
             this.deadCount       = 0;
             this.newBabies       = babies.size();
-            this.minG            = Integer.MAX_VALUE;
-            this.maxG            = 0;
 
             organisms.addAll(babies);
             babies.clear();
@@ -213,8 +204,6 @@ public class Universe implements Global {
                     deadCount++;
                     i.remove();
                 } else {
-                    if (o.genes.length < minG) minG = o.genes.length;
-                    if (o.genes.length > maxG) maxG = o.genes.length;
                     if (o.age < minAge) minAge = o.age;
                     if (o.age > maxAge) maxAge = o.age;
                     if (o.energy < minE) minE = o.energy;
@@ -234,9 +223,6 @@ public class Universe implements Global {
             for (Cell here : allCells) {
                 here.energy /= 2.0;
                 here.energy += this_tick;
-
-                if (here.energy < minGroundEnergy) minGroundEnergy = here.energy;
-                if (here.energy > maxGroundEnergy) maxGroundEnergy = here.energy;
             }
 
             if (statsRequested) {
@@ -299,8 +285,6 @@ public class Universe implements Global {
         stats += "Age of universe : "     + age                  + "\n";
         stats += "Runtime : "             + (Duration.between(now, Instant.now()).toMillis()) + "\n";
         stats += "Tick energy : "         + config.tick_energy() + "\n";
-        stats += "Min ground Energy : "   + minGroundEnergy      + "\n";
-        stats += "Max ground Energy : "   + maxGroundEnergy      + "\n\n";
         stats += MapToString.toString(behaviour_counts);
         stats += "\n";
         stats += MapToString.toString(gene_counts);
