@@ -30,7 +30,7 @@ public class Main {
             }
             Coordinate co = panel.getUniverseCoordinate(e.getPoint());
             Cell     cell = panel.universe.getCell(co);
-            Organism  org = cell.organism;
+            Organism  org = cell.getOrganism();
 
             System.out.println(cell);
 

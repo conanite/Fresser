@@ -143,10 +143,10 @@ public class Universe {
             this.now = Instant.now();
 
             for (Cell cell : allCells) {
-                if (cell.organism != null) {
-                    cell.organism.die();
-                    organisms.remove(cell.organism);
-                    cell.organism = null;
+                if (cell.getOrganism() != null) {
+                    cell.getOrganism().die();
+                    organisms.remove(cell.getOrganism());
+                    cell.setOrganism(null);
                 }
 
                 // cell.energy = 0;
@@ -159,7 +159,7 @@ public class Universe {
                     o.predator_colour = DNA.randomColor(random);
                     o.addEnergy("genesis", config.initial_energy());
                     addOrganism(o);
-                    cell.organism = o;
+                    cell.setOrganism(o);
                 }
             }
 

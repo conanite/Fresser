@@ -30,8 +30,8 @@ public class Approach {
 
         from.addEnergy(toString() + " moving to " + closest.coordinate, -energyCost);
 
-        closest.organism  = from;
-        from.cell.organism = null;
-        from.cell          = closest;
+        closest.setOrganism(from);
+        from.cell.setOrganism(null);
+        from.cell = closest;
     }
 }

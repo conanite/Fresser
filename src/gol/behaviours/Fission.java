@@ -41,15 +41,15 @@ public class Fission extends SimpleBehaviour {
 
         Cell cell = org.cell.pickANeighbour(org.universe.reach_length, org.random.nextDouble());
 
-        if (cell.organism != null) {
+        if (cell.getOrganism() != null) {
             cell = org.cell.pickANeighbour(org.universe.reach_length, org.random.nextDouble());
         }
 
-        if (cell.organism != null) {
+        if (cell.getOrganism() != null) {
             cell = org.cell.pickANeighbour(org.universe.reach_length, org.random.nextDouble());
         }
 
-        if (cell.organism != null) {
+        if (cell.getOrganism() != null) {
             return;
         }
 
@@ -62,12 +62,12 @@ public class Fission extends SimpleBehaviour {
 
         org.addEnergy("conception as parent", energy * -1.0);
         baby.addEnergy("conception as baby", energy * 0.6); // not the full share, this is the cost of doing business
+        baby.newenergy = baby.energy;
 
         org.addEnergy("cost of ejecting baby " + baby + " to " + cell.coordinate, -cell.distanceSq(org.cell));
-        cell.organism = baby;
+        cell.setOrganism(baby);
         baby.cell     = cell;
 
         org.universe.addBaby(baby);
     }
-
 }

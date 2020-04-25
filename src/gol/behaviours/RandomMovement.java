@@ -26,7 +26,7 @@ public class RandomMovement implements Behaviour {
         // if (dest.organism == null) {
         //     org.addEnergy("cost of movement to " + dest.coordinate, -energyCost);
         //     dest.organism     = org;
-        //     org.cell.organism = null;
+        //     org.cell.setOrganism(null);
         //     org.cell          = dest;
         // }
     }

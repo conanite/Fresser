@@ -115,7 +115,7 @@ public class Organism implements Global {
         if (dead) return;
         if (this.cell != null) {
             if (watching) addHistory(toString() + " died at age " + this.age + " with energy " + energy + " in " + this.cell.coordinate);
-            this.cell.organism = null;
+            this.cell.setOrganism(null);
             this.cell.absorb(this);
         } else {
             if (watching) addHistory(toString() + " died at age " + this.age + " with energy " + energy + " nowhere");

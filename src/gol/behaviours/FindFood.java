@@ -57,14 +57,14 @@ public class FindFood extends SimpleBehaviour {
     Organism findNeighbour(Organism org) {
         Cell cell = org.cell.pickANeighbour(org.universe.reach_length, org.random.nextDouble());
 
-        if (cell.organism == null) {
+        if (cell.getOrganism() == null) {
             cell = org.cell.pickANeighbour(org.universe.reach_length, org.random.nextDouble());
         }
 
-        if (cell.organism == null) {
+        if (cell.getOrganism() == null) {
             cell = org.cell.pickANeighbour(org.universe.reach_length, org.random.nextDouble());
         }
 
-        return cell.organism;
+        return cell.getOrganism();
     }
 }
