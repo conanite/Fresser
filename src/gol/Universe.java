@@ -7,6 +7,8 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Universe implements Global {
+    public final double                         daily_energy_cycle        = 0.5;
+    public final double                         annual_energy_cycle       = 0.003;
     public final int                            edge;
     public final Coordinate[][]                 coordinates;
     public final List<Coordinate>               allCoordinates;
@@ -223,9 +225,15 @@ public class Universe implements Global {
                 }
             }
 
+            double hour              = Math.sin(daily_energy_cycle * age) + 1.0;  // varies from 0.0 to 2.0
+            double date              = Math.sin(annual_energy_cycle * age) + 1.0; // varies from 0.0 to 2.0
+            double energy_curve      = (hour + date) / 4.0;                       // varies from 0.0 to 1.0
+            double energy_adjustment = 0.4 + (0.6 * energy_curve);                // varies from 0.3 to 1.0 so energy is never zero
+            double this_tick         = tick_energy * energy_adjustment;
+
             for (Cell here : allCells) {
                 here.energy /= 2.0;
-                here.energy += tick_energy;
+                here.energy += this_tick;
 
                 if (here.energy < minGroundEnergy) minGroundEnergy = here.energy;
                 if (here.energy > maxGroundEnergy) maxGroundEnergy = here.energy;
