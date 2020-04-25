@@ -40,34 +40,16 @@ public class Navigation extends KeyAdapter implements Global {
             }
         } else if (e.getKeyChar() == 'm') {
             panel.universe.requestStats();
-        } else if (e.getKeyChar() == 'p') {
-            if (panel.filter == "predators") {
-                panel.filter = "photosynths";
-            } else if (panel.filter == "photosynths") {
-                panel.filter = "all";
-            } else {
-                panel.filter = "predators";
-            }
-            // panel.predatorsOnly = !panel.predatorsOnly;
-            panel.universe.predStatsRequested = true;
-            panel.universe.requestStats();
         } else if (e.getKeyChar() == 'o') {
             o.println(panel.universe.population());
         } else if (e.getKeyChar() == 's') {
             panel.universe.stopped    = !panel.universe.stopped;
         } else if (e.getKeyChar() == 'v') {
-            if (panel.colourify == "age") {
-                panel.colourify = "colour";
-            } else if (panel.colourify == "colour") {
-                panel.colourify = "energy";
-            } else if (panel.colourify == "energy") {
-                panel.colourify = "ground_energy";
-            } else {
-                panel.colourify = "age";
-            // } else {
-            //     panel.colourify = "leafiness";
-            }
-            System.out.println("View is " + panel.colourify);
+            panel.colourify = panel.colourify.next();
+            o.println("View is " + panel.colourify);
+        } else if (e.getKeyChar() == 'V') {
+            panel.colourify = panel.colourify.previous();
+            o.println("View is " + panel.colourify);
         } else if (e.getKeyChar() == 'R') {
             panel.universe.requestRestart();
         } else if (e.getKeyChar() == 'z') {

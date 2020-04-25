@@ -36,6 +36,8 @@ public class Universe implements Global {
     public int    newBabies;
     public int    minAge;
     public int    maxAge;
+    public int    minG;
+    public int    maxG;
     // public int    minReach;
     // public int    maxReach;
     public double minGroundEnergy;
@@ -193,6 +195,8 @@ public class Universe implements Global {
             this.totalE          = 0.0d;
             this.deadCount       = 0;
             this.newBabies       = babies.size();
+            this.minG            = Integer.MAX_VALUE;
+            this.maxG            = 0;
 
             organisms.addAll(babies);
             babies.clear();
@@ -207,6 +211,8 @@ public class Universe implements Global {
                     deadCount++;
                     i.remove();
                 } else {
+                    if (o.genes.length < minG) minG = o.genes.length;
+                    if (o.genes.length > maxG) maxG = o.genes.length;
                     if (o.age < minAge) minAge = o.age;
                     if (o.age > maxAge) maxAge = o.age;
                     if (o.energy < minE) minE = o.energy;

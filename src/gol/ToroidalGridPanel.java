@@ -25,7 +25,7 @@ public class ToroidalGridPanel extends JPanel implements UniverseListener, Globa
     private Coordinate    offset;
     private Point         pointingAt;
     public  Organism      watching;
-    public  String        colourify     = "colour";
+    public  ShowStyle     colourify     = ShowStyle.colourage;
     public  String        bgColour      = "dark";
     public  String        filter        = "all";
     public  boolean       redrawable    = true;
@@ -157,37 +157,108 @@ public class ToroidalGridPanel extends JPanel implements UniverseListener, Globa
 
         Coordinate looking = lookingAt();
 
+        double minx    = 0;
+        double maxx    = 0;
+        double loggapx = 0;
+        if (colourify == ShowStyle.eat) {
+            for(Cell cell : universe.allCells) {
+                Organism org = cell.getOrganism();
+                if (org != null) {
+                  Eat e = Eat.get(org);
+                  if (e != null) {
+                      double me = e.amount();
+                      if (me < minx) minx = me;
+                      if (me > maxx) maxx = me;
+                  }
+                }
+            }
+            loggapx = Math.log(1.0d + maxx - minx  );
+        } else if (colourify == ShowStyle.sunlight) {
+            for(Cell cell : universe.allCells) {
+                Organism org = cell.getOrganism();
+                if (org != null) {
+                  AbsorbSunlight e = AbsorbSunlight.get(org);
+                  if (e != null) {
+                      double me = e.amount();
+                      if (me < minx) minx = me;
+                      if (me > maxx) maxx = me;
+                  }
+                }
+            }
+            loggapx = Math.log(1.0d + maxx - minx  );
+        } else if (colourify == ShowStyle.fission) {
+            for(Cell cell : universe.allCells) {
+                Organism org = cell.getOrganism();
+                if (org != null) {
+                  Fission e = Fission.get(org);
+                  if (e != null) {
+                      double me = e.amount();
+                      if (me < minx) minx = me;
+                      if (me > maxx) maxx = me;
+                  }
+                }
+            }
+            loggapx = Math.log(1.0d + maxx - minx  );
+        }
+
         for (Cell c : universe.allCells) {
             Coordinate nc = universe.getCoordinate(offset.y + c.coordinate.y, offset.x + c.coordinate.x);
             int yc = nc.y * cellSize;
             int xc = nc.x * cellSize;
             Organism org = c.organism;
-            if (colourify == "ground_energy") {
+            if (colourify == ShowStyle.ground_energy) {
                 double e    = c.energy;
                 double scale = 0;
                 scale = getLinearScaleValue(universe.minGroundEnergy, e, universe.maxGroundEnergy);
                 b.setColor(grey((float)scale));
             } else if (org == null) {
                 b.setColor(getBackgroundColour(c));
-            // } else if (colourify == "leafiness") {
+            // } else if (colourify == ShowStyle.leafiness) {
             //     b.setColor(getLeafinessColour(org.leafiness));
-            } else if (colourify == "energy") {
+            } else if (colourify == ShowStyle.energy) {
                 float scale =  getLogScaleValue(universe.minE, org.energy, log_energy_gap);
                 b.setColor(grey(scale));
-            } else if (colourify == "age") {
+            } else if (colourify == ShowStyle.genecount) {
+                float scale =  getLinearScaleValue(universe.minG, org.genes.length, universe.maxG);
+                b.setColor(grey(scale));
+            } else if (colourify == ShowStyle.eat) {
+                Eat e = Eat.get(org);
+                double me = 0;
+                if (e != null) {
+                    float scale = getLogScaleValue(minx, e.amount(), loggapx);
+                    b.setColor(grey(scale));
+                } else {
+                    b.setColor(getBackgroundColour(c));
+                }
+
+            } else if (colourify == ShowStyle.sunlight) {
+                AbsorbSunlight e = AbsorbSunlight.get(org);
+                double me = 0;
+                if (e != null) {
+                    float scale = getLogScaleValue(minx, e.amount(), loggapx);
+                    b.setColor(grey(scale));
+                } else {
+                    b.setColor(getBackgroundColour(c));
+                }
+
+            } else if (colourify == ShowStyle.fission) {
+                Fission e = Fission.get(org);
+                double me = 0;
+                if (e != null) {
+                    float scale = getLogScaleValue(minx, e.amount(), loggapx);
+                    b.setColor(grey(scale));
+                } else {
+                    b.setColor(getBackgroundColour(c));
+                }
+
+            } else if (colourify == ShowStyle.age) {
                 float scale =  getLogScaleValue(universe.minAge, org.age, log_age_gap);
                 b.setColor(grey(scale));
-            } else {
+            } else if (colourify == ShowStyle.colourage) {
                 float scale =  getLogScaleValue(universe.minAge, org.age, log_age_gap);
-                // float negscale = 1.0f - scale;
-                // Color ca = grey(scale);
-                // Color cb  = org.my_colour;
-
-                // float dr = (float)(((ca.getRed()   * scale) + (cb.getRed()   * negscale)) / 255.0);
-                // float dg = (float)(((ca.getGreen() * scale) + (cb.getGreen() * negscale)) / 255.0);
-                // float db = (float)(((ca.getBlue()  * scale) + (cb.getBlue()  * negscale)) / 255.0);
-
                 b.setColor(Appearance.darkify(org.my_colour, scale));
+            } else {
+                b.setColor(org.my_colour);
             }
             b.fillRect(xc, yc, cellSize, cellSize);
 

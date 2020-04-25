@@ -1,5 +1,7 @@
+package gol;
+
 public enum ShowStyle {
-    colour, energy, ground_energy, age;
+    age, colourage, genecount, eat, sunlight, fission, energy, colour, ground_energy;
     private static ShowStyle[] options = values();
     public ShowStyle next() {
         return options[(ordinal() + 1) % options.length];
