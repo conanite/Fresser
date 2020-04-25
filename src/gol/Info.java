@@ -34,7 +34,7 @@ class Info implements UniverseListener, Global {
         if (lookingAt != null) {
             b.append(" at " + lookingAt);
             Cell c = universe.getCell(lookingAt);
-            Organism o = c.organism;
+            Organism o = c.getOrganism();
             if (o != null) {
                 // b.append(" " + (((int)(100 * o.leafiness)) / 100.0));
                 b.append(" id#" + o.id);

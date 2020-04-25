@@ -16,8 +16,8 @@ public class GatherCandidatePrey extends Eat implements Behaviour {
         // if (org.reach.size() < 1) { return; }
 
         // for(Cell c : org.reach) {
-        //     if (c.organism != null) {
-        //         org.candidatePrey.add(c.organism);
+        //     if (c.getOrganism() != null) {
+        //         org.candidatePrey.add(c.getOrganism());
         //     }
         // }
     }

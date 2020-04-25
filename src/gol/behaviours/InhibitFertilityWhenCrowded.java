@@ -13,7 +13,7 @@ public class InhibitFertilityWhenCrowded implements Behaviour {
 
         List<Organism> neighbours = new ArrayList<Organism>();
 
-        for(Cell c : org.reach) if (c.organism != null) neighbours.add(c.organism);
+        for(Cell c : org.reach) if (c.getOrganism() != null) neighbours.add(c.getOrganism());
 
         double inhibition = 1.0 - ((1.0 * neighbours.size()) / (1.0 * org.reach.size()));
 

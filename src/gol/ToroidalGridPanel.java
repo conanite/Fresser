@@ -206,7 +206,7 @@ public class ToroidalGridPanel extends JPanel implements UniverseListener, Globa
             Coordinate nc = universe.getCoordinate(offset.y + c.coordinate.y, offset.x + c.coordinate.x);
             int yc = nc.y * cellSize;
             int xc = nc.x * cellSize;
-            Organism org = c.organism;
+            Organism org = c.getOrganism();
             if (colourify == ShowStyle.ground_energy) {
                 double e    = c.energy;
                 double scale = 0;

@@ -11,7 +11,7 @@ public class Approach {
         List<Cell> candidates = new ArrayList<Cell>();
         for (Cell c : from.reach) {
             double d = towards.cell.distanceSq(c);
-            if ((c.organism == null) && (d <= bestDistance)) {
+            if ((c.getOrganism() == null) && (d <= bestDistance)) {
                 if (d < bestDistance) candidates.clear();
                 candidates.add(c);
                 bestDistance = d;
