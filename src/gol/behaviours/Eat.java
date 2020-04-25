@@ -53,11 +53,15 @@ public class Eat extends SimpleBehaviour {
         boolean doit = org.random.nextDouble() < prob;
         if (!doit) return;
 
+        if (food == org || food == null || food.dead || food.cell == null) {
+            food = null;
+            return;
+        }
+
         eat(food);
     }
 
     public void eat(Organism prey) {
-        if (prey == org || prey == null || prey.dead) return;
 
         prey = Attack.attack(org, prey);
         if (prey == null) return;
