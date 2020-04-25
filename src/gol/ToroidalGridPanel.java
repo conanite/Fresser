@@ -27,7 +27,6 @@ public class ToroidalGridPanel extends JPanel implements UniverseListener, Globa
     private BufferedImage image;
     private Coordinate    offset;
     private Point         pointingAt;
-    public  Organism      watching;
     public  ShowStyle     colourify     = ShowStyle.colourage;
     public  String        bgColour      = "dark";
     public  String        filter        = "all";
