@@ -1,9 +1,31 @@
+https://youtu.be/fWe09iNTlmQ
+https://youtu.be/8Svv-CqMBNc
 
-  Cell fixed attributes: capacity, x, y, z
+# lossless .webm but video file is larger than sum of all image files
+ffmpeg -pattern_type glob -i '*.png' -c:v libvpx-vp9 -pix_fmt yuva420p -quality 100 -q:v 1 -qscale:v 0 -lossless 0 life004hq.webm
+
+# rubbish, too lossy
+ffmpeg -pattern_type glob -i '*.png' -c:v libvpx-vp9 -pix_fmt yuva420p -quality 100 -q:v 1 -qscale:v 0 -lossless 0 life004hq.webm
+
+# lossless but huge file
+ffmpeg -pattern_type glob -i '*.png' -c:v libx264 -crf 0 life005.mp4
+
+# blitz-fast encoding, file-size == sum of image files (basically tar of all pngs)
+ffmpeg -pattern_type glob -i '*.png' -c:v copy life005.mkv
+
+# fast encoding, file-size == 28% sum of image files, good quality
+ffmpeg -pattern_type glob -i '*.png' -c:v libx264 -q:v 90 life007.mkv
+
+# slow, but best compression for good quality: 2-pass webm
+ffmpeg  -pattern_type glob -i '*.png' -c:v libvpx-vp9 -b:v 2M -pass 1 -an -f webm /dev/null
+ffmpeg  -pattern_type glob -i '*.png' -c:v libvpx-vp9 -b:v 2M -pass 2 -c:a libopus life.webm
+
+
+Cell fixed attributes: capacity, x, y, z
 
   Cell variable attributes:
     food:    []
-    agent:   
+    agent:
     surface:
 
   Agent:
