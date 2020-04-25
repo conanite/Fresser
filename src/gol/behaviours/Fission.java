@@ -6,6 +6,11 @@ import gol.*;
 
 public class Fission extends SimpleBehaviour {
     public static final String        name = "Fission";
+
+    public static Fission get(Organism org) {
+        return (Fission)org.blackboard.get(Fission.name);
+    }
+
     public static final Gene          gene = new Gene() {
             public String name() { return "Fission"; }
             public void install(Organism org) {
