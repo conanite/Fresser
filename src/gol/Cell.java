@@ -8,7 +8,6 @@ public class Cell {
     public  final    List<Cell> neighbours                 = new ArrayList<Cell>(315); // enough for d=10 (10^2 * 3.14)
     public  final    List<Cell>[] neighbourListsByDistance = (List<Cell>[])(new List[40]);
     public  double   energy                                = 0.0d;
-    public  int      ageLastChange                         = 0;
     private Organism organism;
 
 
@@ -18,7 +17,6 @@ public class Cell {
 
     public void setOrganism(Organism org) {
         this.organism      = org;
-        this.ageLastChange = universe.age;
     }
 
     public Cell(Universe u, Coordinate co) {

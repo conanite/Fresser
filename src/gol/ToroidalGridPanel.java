@@ -47,7 +47,7 @@ public class ToroidalGridPanel extends JPanel implements UniverseListener, Globa
         this.painters.put(ShowStyle.energy       , new EnergyPainter());
         this.painters.put(ShowStyle.ground_energy, new GroundEnergyPainter());
         this.painters.put(ShowStyle.colour       , new ColourPainter());
-        this.painters.put(ShowStyle.activity     , new ActivityPainter());
+        this.painters.put(ShowStyle.inverse_age  , new InverseAgePainter());
 
         setCellSize();
 
