@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
+import gol.behaviours.*;
 
 public class ToroidalGridPanel extends JPanel implements UniverseListener, Global {
     private static final int WIDTH    = 640;
@@ -13,7 +14,7 @@ public class ToroidalGridPanel extends JPanel implements UniverseListener, Globa
     private static final Color BLANK  = new Color(0.0f, 0.0f, 1.0f, 1.0f);
     private static final Color FALSE  = new Color(0.0f, 0.0f, 0.0f, 1.0f);
     private static final Color TRUE   = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-    private static final Color DARK   = new Color(0.05f, 0.05f, 0.05f, 1.0f);
+    private static final Color DARK   = new Color(0.01f, 0.01f, 0.01f, 1.0f);
     private static final Color BRIGHT = new Color(0.95f, 0.95f, 0.95f, 1.0f);
     private static final Color GREY   = new Color(0.5f , 0.5f , 0.5f , 1.0f);
 
