@@ -47,8 +47,8 @@ class ImageCapture implements UniverseListener, Global {
         try {
             ImageIO.write(panel.getImage(), "png", outputfile);
         } catch (IOException ioe) {
-            System.out.println("couldn't write file " + outputfile);
-            System.out.println(ioe);
+            o.println("couldn't write file " + outputfile);
+            o.println(ioe);
         }
     }
 }

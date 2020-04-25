@@ -6,7 +6,7 @@ import java.util.concurrent.*;
 import java.awt.Color;
 import gol.behaviours.*;
 
-public class Organism implements Global {
+public class Organism implements Tickable, Global {
     public static int              index         = 0;
     public final  Universe         universe;
     public final  Gene[]           genes;

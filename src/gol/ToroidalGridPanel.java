@@ -60,13 +60,13 @@ public class ToroidalGridPanel extends JPanel implements UniverseListener, Globa
     public void zoomIn() {
         this.scale *= 1.2;
         setCellSize();
-        System.out.println("zoom in: scale is " + scale + ", cellsize is " + cellSize);
+        o.println("zoom in: scale is " + scale + ", cellsize is " + cellSize);
     }
 
     public void zoomOut() {
         this.scale /= 1.2;
         setCellSize();
-        System.out.println("zoom out: scale is " + scale + ", cellsize is " + cellSize);
+        o.println("zoom out: scale is " + scale + ", cellsize is " + cellSize);
     }
 
     public void universeTicked()    { requireRedraw(); redraw(); }

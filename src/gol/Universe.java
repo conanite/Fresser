@@ -6,7 +6,7 @@ import java.util.stream.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class Universe {
+public class Universe implements Global {
     public final int                            edge;
     public final Coordinate[][]                 coordinates;
     public final List<Coordinate>               allCoordinates;
@@ -66,19 +66,19 @@ public class Universe {
                 this.coordinates[i][j] = co;
                 this.allCoordinates.add(co);
             }
-            System.out.print(".");
+            o.print(".");
         }
-        System.out.println("created " + allCells.length +  " cells");
+        o.println("created " + allCells.length +  " cells");
 
         Collections.sort(allCoordinates);
-        System.out.println("coordinates sorted");
+        o.println("coordinates sorted");
 
         for(double i = 0.1; i < 11.0; i+=0.1) { // allowing max distance 10
             final double j = i;
             Predicate<Coordinate> byDistance = cell -> cell.len <= j;
             List<Coordinate> result = allCoordinates.stream().filter(byDistance).collect(Collectors.toList());
             this.neighbourCountsByDistance[(int)(10 * i)] = result.size() - 1;
-            // System.out.println("at radius " + j + " there are " + (result.size() - 1) + " neighbours");
+            // o.println("at radius " + j + " there are " + (result.size() - 1) + " neighbours");
         }
 
 
@@ -88,9 +88,9 @@ public class Universe {
             for (int j = 0; j < edge; j++) {
                 this.cells[i][j].init(nearby);
             }
-            System.out.print(".");
+            o.print(".");
         }
-        System.out.println("Universe setup complete, about to start");
+        o.println("Universe setup complete, about to start");
     }
 
     public void addListener(UniverseListener listener) { listeners.add(listener); }
@@ -226,13 +226,13 @@ public class Universe {
             }
 
             if (statsRequested) {
-                System.out.println(massStats());
+                o.println(massStats());
                 statsRequested     = false;
                 predStatsRequested = false;
             }
 
             if (restartRequested) {
-                System.out.println("everything is dead at age " + age + " ; restarting");
+                o.println("everything is dead at age " + age + " ; restarting");
                 try {
                     restartRequested = false;
                     Thread.sleep(100);

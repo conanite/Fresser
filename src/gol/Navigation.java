@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class Navigation extends KeyAdapter {
+public class Navigation extends KeyAdapter implements Global {
     private ToroidalGridPanel panel;
     private Info info;
 
@@ -33,10 +33,10 @@ public class Navigation extends KeyAdapter {
         } else if (e.getKeyChar() == ' ') {
             panel.universe.stepped = true;
         } else if (e.getKeyChar() == 'g') {
-            System.out.println(MapToString.toString(DNA.stats()));
+            o.println(MapToString.toString(DNA.stats()));
         } else if (e.getKeyChar() == 'G') {
             for (Organism org : panel.universe.organisms) {
-                System.out.println(org.behaviours);
+                o.println(org.behaviours);
             }
         } else if (e.getKeyChar() == 'm') {
             panel.universe.requestStats();
@@ -52,7 +52,7 @@ public class Navigation extends KeyAdapter {
             panel.universe.predStatsRequested = true;
             panel.universe.requestStats();
         } else if (e.getKeyChar() == 'o') {
-            System.out.println(panel.universe.population());
+            o.println(panel.universe.population());
         } else if (e.getKeyChar() == 's') {
             panel.universe.stopped    = !panel.universe.stopped;
         } else if (e.getKeyChar() == 'v') {
@@ -75,7 +75,7 @@ public class Navigation extends KeyAdapter {
         } else if (e.getKeyChar() == 'Z') {
             panel.zoomOut();
         } else {
-            // System.out.println("Going Somewhere: " + e.getKeyChar());
+            // o.println("Going Somewhere: " + e.getKeyChar());
         }
 
         panel.requireRedraw();

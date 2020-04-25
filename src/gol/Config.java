@@ -3,7 +3,7 @@ package gol;
 import java.io.*;
 import java.util.*;
 
-class Config extends Properties {
+class Config extends Properties implements Global {
     public Config() throws IOException {
         super();
         setProperty("threads"                , "4"     );
@@ -20,13 +20,13 @@ class Config extends Properties {
         setProperty("genesis_prob"           , "0.25"  );
 
         String home = System.getProperty("user.home");
-        System.out.println("home is at " + home);
+        o.println("home is at " + home);
         File d = new File(home + "/.config/gol");
         if (!d.exists()) d.mkdirs();
         File f = new File(home + "/.config/gol/config.properties");
         if (f.exists() && !f.isDirectory()) {
             Reader source = new FileReader(f);
-            System.out.println("reading config from " + f);
+            o.println("reading config from " + f);
             load(source);
         }
 

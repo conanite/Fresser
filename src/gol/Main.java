@@ -7,7 +7,7 @@ import java.util.*;
 import javax.swing.*;
 
 public class Main {
-    static class Pointer extends MouseAdapter {
+    static class Pointer extends MouseAdapter implements Global {
         public final ToroidalGridPanel panel;
         public final Info              info;
         public       Organism          watching;
@@ -32,12 +32,12 @@ public class Main {
             Cell     cell = panel.universe.getCell(co);
             Organism  org = cell.getOrganism();
 
-            System.out.println(cell);
+            o.println(cell);
 
             if (org != null) {
                 org.watching = true;
                 watching     = org;
-                System.out.println(MapToString.toString(org.status()));
+                o.println(MapToString.toString(org.status()));
             }
         }
     }

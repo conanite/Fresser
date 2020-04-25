@@ -1,11 +1,13 @@
 package gol;
 
+import java.io.*;
 import java.util.*;
 import java.text.*;
 import java.time.*;
 import java.time.format.*;
 
 public interface Global {
+    public static final PrintStream         o  = System.out;
     public static final DecimalFormat     nf2  = new DecimalFormat("#.##");
     public static final DecimalFormat     nf1  = new DecimalFormat("#.#" );
     public static final DecimalFormat     int7 = new DecimalFormat("00000000" );

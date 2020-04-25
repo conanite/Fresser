@@ -19,8 +19,8 @@ public class EatNeighbour extends Eat implements Behaviour {
 
         // if (org.reach_length < 2) return;
 
-        // System.out.println("reachLength is " + org.reachLength);
-        // System.out.println("reach.size() is " + org.reach.size());
+        // o.println("reachLength is " + org.reachLength);
+        // o.println("reach.size() is " + org.reach.size());
 
         Cell dest = org.cell.pickANeighbour(org.universe.reach_length, org.random.nextDouble());
 
