@@ -45,6 +45,7 @@ public class DNA {
         addGene(AbsorbSunlight.gene);
         addGene(AbsorbSunlight.gene);
         addGene(AbsorbSunlight.gene);
+        addGene(AbsorbSunlight.gene);
 
         addGene(Fission.gene);
         addGene(Fission.gene);
@@ -57,6 +58,10 @@ public class DNA {
         addGene(Fission.fissionSmaller);
         addGene(Fission.fissionSmaller);
 
+        addGene(Eat.gene);
+        addGene(Eat.gene);
+        addGene(Eat.gene);
+        addGene(Eat.gene);
         addGene(Eat.gene);
         addGene(Eat.gene);
         addGene(Eat.gene);
