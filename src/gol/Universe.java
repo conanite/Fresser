@@ -214,15 +214,16 @@ public class Universe implements Global {
                 }
             }
 
-            double hour              = Math.sin(daily_energy_cycle * age) + 1.0;  // varies from 0.0 to 2.0
-            double date              = Math.sin(annual_energy_cycle * age) + 1.0; // varies from 0.0 to 2.0
-            double energy_curve      = (hour + date) / 4.0;                       // varies from 0.0 to 1.0
-            double energy_adjustment = 0.4 + (0.6 * energy_curve);                // varies from 0.3 to 1.0 so energy is never zero
-            double this_tick         = tick_energy * energy_adjustment;
+            // double hour              = Math.sin(daily_energy_cycle * age) + 1.0;  // varies from 0.0 to 2.0
+            // double date              = Math.sin(annual_energy_cycle * age) + 1.0; // varies from 0.0 to 2.0
+            // double energy_curve      = (hour + date) / 4.0;                       // varies from 0.0 to 1.0
+            // double energy_adjustment = 0.4 + (0.6 * energy_curve);                // varies from 0.3 to 1.0 so energy is never zero
+            // double this_tick         = tick_energy * energy_adjustment;
 
             for (Cell here : allCells) {
                 here.energy /= 2.0;
-                here.energy += this_tick;
+                // here.energy += this_tick;
+                here.energy += tick_energy;
             }
 
             if (statsRequested) {
