@@ -30,11 +30,20 @@ public class Eat extends SimpleBehaviour {
     public static final Gene abstemious = new Tweak<SimpleBehaviour>("Abstemious", Eat.name, DNA.less, nrgc );
 
     public Organism food;
+    public FindFood finder;
 
     public Eat(Organism org) {
         super(org);
         prob = 0.66;
         energyShare = 0.66;
+    }
+
+    public double amount() {
+        if (finder == null) {
+            return 0.0;
+        } else {
+            return super.amount() * (1.0 - finder.familyThreshold);
+        }
     }
 
     public String toString() {

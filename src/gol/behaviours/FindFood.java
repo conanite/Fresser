@@ -25,6 +25,7 @@ public class FindFood extends SimpleBehaviour {
                 b = new FindFood(org, eat);
                 org.behaviours.add(b);
                 org.blackboard.put(name(), b);
+                eat.finder = b;
             }
         };
 
