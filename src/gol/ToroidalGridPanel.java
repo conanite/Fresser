@@ -44,6 +44,8 @@ public class ToroidalGridPanel extends JPanel implements UniverseListener, Globa
         this.painters.put(ShowStyle.sunlight     , new AbsorbSunlightPainter());
         this.painters.put(ShowStyle.eat          , new EatPainter());
         this.painters.put(ShowStyle.fission      , new FissionPainter());
+        this.painters.put(ShowStyle.attack       , new AttackPainter());
+        this.painters.put(ShowStyle.defend       , new DefendPainter());
         this.painters.put(ShowStyle.energy       , new EnergyPainter());
         this.painters.put(ShowStyle.ground_energy, new GroundEnergyPainter());
         this.painters.put(ShowStyle.colour       , new ColourPainter());
