@@ -63,13 +63,13 @@ public class Organism implements Tickable, Global {
         s.put("A dead", dead);
         s.put("A genes", genes.length);
         s.put("A behaviour count", behaviours.size());
-        s.put("B behaviours", bs);
         s.put("C genes", gs);
         s.put("E energy", nf2.format(energy));
         s.put("E new energy", nf2.format(newenergy));
         s.put("F my_colour", "" + my_colour.getRed() + "," + my_colour.getGreen() + "," + my_colour.getBlue());
         s.put("F food_colour", "" + food_colour.getRed() + "," + food_colour.getGreen() + "," + food_colour.getBlue());
         s.put("F predator_colour", "" + predator_colour.getRed() + "," + predator_colour.getGreen() + "," + predator_colour.getBlue());
+        s.put("H behaviours", bs);
         if (cell != null) { s.put("coordinates", cell.coordinate); }
         return s;
     }
