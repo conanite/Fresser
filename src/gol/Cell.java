@@ -2,22 +2,14 @@ package gol;
 
 import java.util.*;
 
-public class Cell {
+public class Cell implements Tickable {
     private final    Universe   universe;
     public  final    Coordinate coordinate;
     public  final    List<Cell> neighbours                 = new ArrayList<Cell>(315); // enough for d=10 (10^2 * 3.14)
     public  final    List<Cell>[] neighbourListsByDistance = (List<Cell>[])(new List[40]);
     public  double   energy                                = 0.0d;
     private Organism organism;
-
-
-    public Organism getOrganism() {
-        return organism;
-    }
-
-    public void setOrganism(Organism org) {
-        this.organism      = org;
-    }
+    public  Ribbon   ribbon;
 
     public Cell(Universe u, Coordinate co) {
         this.universe   = u;
@@ -28,6 +20,30 @@ public class Cell {
         for (Coordinate coo : nearby) {
             neighbours.add(neighbour(coo));
         }
+    }
+
+    public Organism getOrganism() {
+        return organism;
+    }
+
+    public void setOrganism(Organism org) {
+        this.organism      = org;
+    }
+
+    public void notifyDeath() {
+        this.ribbon.deaths++;
+    }
+
+    public void notifyBirth() {
+        this.ribbon.births++;
+    }
+
+    public boolean alive() {
+        return organism != null && organism.alive();
+    }
+
+    public void tick() {
+        if (organism != null) organism.tick();
     }
 
     public Cell pickANeighbour(double distance, double at) {

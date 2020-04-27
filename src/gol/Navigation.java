@@ -35,9 +35,9 @@ public class Navigation extends KeyAdapter implements Global {
         } else if (e.getKeyChar() == 'g') {
             o.println(MapToString.toString(DNA.stats()));
         } else if (e.getKeyChar() == 'G') {
-            for (Organism org : panel.universe.organisms) {
-                o.println(org.behaviours);
-            }
+            // for (Organism org : panel.universe.organisms) {
+            //     o.println(org.behaviours);
+            // }
         } else if (e.getKeyChar() == 'm') {
             panel.universe.requestStats();
         } else if (e.getKeyChar() == 'o') {

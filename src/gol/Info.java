@@ -60,9 +60,9 @@ class Info implements UniverseListener, Global {
         lastUpdate = now;
 
         age.setText("Age " + universe.age + (universe.stopped ? " Stopped" : ""));
-        organisms.setText("Organisms " + universe.organisms.size());
-        births.setText("Births +" + universe.newBabies);
-        deaths.setText("Deaths -" + universe.deadCount);
+        organisms.setText("Organisms " + universe.total);
+        births.setText("Births +" + universe.births);
+        deaths.setText("Deaths -" + universe.deaths);
         runtime.setText("Runtime " + (Duration.between(universe.now, Instant.now()).toMillis() / 1000));
         view.setText("Showing " + tgp.colourify);
 

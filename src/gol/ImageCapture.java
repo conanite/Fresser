@@ -32,8 +32,8 @@ class ImageCapture implements UniverseListener, Global {
     }
 
     public void universeTicked()    {
-        changeCount += universe.deadCount;
-        changeCount += universe.newBabies;
+        changeCount += universe.deaths;
+        changeCount += universe.births;
         if ((changeCount > image_save_cell_count) && (universe.age - lastSave >= image_save_min_interval)) {
             changeCount = 0;
             saveImage();

@@ -58,7 +58,7 @@ public class Fission extends SimpleBehaviour {
             return;
         }
 
-        Organism baby        = new Organism(org.universe, null, DNA.mutate(org.random, org.genes), org.random);
+        Organism baby        = new Organism(org.universe, cell, DNA.mutate(org.random, org.genes), org.random);
         baby.food_colour     = DNA.mutate(org.random, org.food_colour);
         baby.my_colour       = DNA.mutate(org.random, org.my_colour);
         baby.predator_colour = DNA.mutate(org.random, org.predator_colour);
@@ -73,6 +73,6 @@ public class Fission extends SimpleBehaviour {
         cell.setOrganism(baby);
         baby.cell     = cell;
 
-        org.universe.addBaby(baby);
+        // org.universe.addBaby(baby);
     }
 }

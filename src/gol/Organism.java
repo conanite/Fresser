@@ -37,7 +37,8 @@ public class Organism implements Tickable, Global {
 
         for (Gene g : genes) { g.install(this); }
 
-        this.watching = (id % 1000) == 0;
+        this.cell.notifyBirth();
+        // this.watching = (id % 1000) == 0;
         // this.watching   = random.nextDouble() < u.config.watching();
     }
 
@@ -121,19 +122,12 @@ public class Organism implements Tickable, Global {
         } else {
             if (watching) addHistory(toString() + " died at age " + this.age + " with energy " + energy + " nowhere");
         }
+        this.cell.notifyDeath();
         this.cell = null;
         this.dead = true;
     }
 
     public boolean alive() { return !dead; }
-
-    public void pretick() {
-        this.oldenergy = this.energy;
-    }
-
-    public void posttick() {
-        this.newenergy = energy - oldenergy;
-    }
 
     public void tick() {
         this.age++;
@@ -147,5 +141,7 @@ public class Organism implements Tickable, Global {
         for(Behaviour b : behaviours) { b.tick(); }
 
         healthCheck();
+        this.newenergy = energy - oldenergy;
+        this.oldenergy = this.energy;
     }
 }

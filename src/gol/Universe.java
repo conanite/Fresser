@@ -23,19 +23,21 @@ public class Universe implements Global {
     public       Instant           now;
     public final double            reach_length;
     public final SplittableRandom  random             = new SplittableRandom(new Random().nextLong());
-    public final List<Organism>    organisms          = new ArrayList<Organism>();
-    public final List<Organism>    babies             = new ArrayList<Organism>();
+    // private final List<Organism>    organisms          = new ArrayList<Organism>();
+    // private final List<Organism>    babies             = new ArrayList<Organism>();
     public       boolean           stopped            = false;
     public       boolean           stepped            = false;
     public       boolean           paused             = false;
     public       int               age                = 0;
+    private      int               waitingThreads     = 0;
     private      boolean           restartRequested   = false;
     private      boolean           statsRequested     = false;
     public       boolean           predStatsRequested = false;
 
     // for stats and drawing
-    public int    deadCount;
-    public int    newBabies;
+    public int    births;
+    public int    deaths;
+    public int    total;
     public int    minAge;
     public int    maxAge;
 
@@ -118,13 +120,17 @@ public class Universe implements Global {
         return result;
     }
 
-    public void addOrganism(Organism o) {
-        this.organisms.add(o);
-    }
+    public int organismCount() { return total; }
 
-    public void addBaby(Organism o) {
-        this.babies.add(o);
-    }
+    // public void addOrganism(Organism o) {
+    //     if (o == null) { throw new Error("can't add a null organism!!"); }
+    //     this.organisms.add(o);
+    // }
+
+    // public void addBaby(Organism o) {
+    //     if (o == null) { throw new Error("can't add a null baby organism!!"); }
+    //     this.babies.add(o);
+    // }
 
     public void requestRestart() {
         this.restartRequested = true;
@@ -134,7 +140,7 @@ public class Universe implements Global {
         this.statsRequested = true;
     }
 
-    public void restart() throws InterruptedException {
+    public void restart() {
         try {
             this.paused = true;
 
@@ -144,7 +150,7 @@ public class Universe implements Global {
             for (Cell cell : allCells) {
                 if (cell.getOrganism() != null) {
                     cell.getOrganism().die();
-                    organisms.remove(cell.getOrganism());
+                    // organisms.remove(cell.getOrganism());
                     cell.setOrganism(null);
                 }
 
@@ -157,7 +163,7 @@ public class Universe implements Global {
                     o.my_colour       = DNA.randomColor(random);
                     o.predator_colour = DNA.randomColor(random);
                     o.addEnergy("genesis", config.initial_energy());
-                    addOrganism(o);
+                    // addOrganism(o);
                     cell.setOrganism(o);
                 }
             }
@@ -175,6 +181,11 @@ public class Universe implements Global {
         stepped = false;
         for (UniverseListener listener : listeners) { listener.universeTicked(); }
         while(stopped && !stepped) { Thread.yield(); Thread.sleep(100); }
+        if (age % 1000 == 0) {
+            long time = Duration.between(now, Instant.now()).toMillis();
+            o.println("time to " + age + " generations: " + time);
+            // requestRestart();
+        }
     }
 
     public void tick() throws InterruptedException {
@@ -188,31 +199,33 @@ public class Universe implements Global {
             this.minE            = Double.MAX_VALUE;
             this.maxE            = -Double.MAX_VALUE;
             this.totalE          = 0.0d;
-            this.deadCount       = 0;
-            this.newBabies       = babies.size();
+            // this.deadCount       = 0;
+            // this.newBabies       = babies.size();
 
-            organisms.addAll(babies);
-            babies.clear();
+            // o.println("Universe : tick, new babies count " + babies.size());
+            // organisms.addAll(babies);
+            // babies.clear();
 
             // Collections.shuffle(organisms);
-            Iterator<Organism> i = organisms.iterator();
-            while(i.hasNext()) {
-                Organism o = i.next();
-                if (o == null) { throw new Error("got a null organism in organism list!"); }
-                // if (!o.fertile()) o.die();
-                if (o.dead) {
-                    deadCount++;
-                    i.remove();
-                } else {
-                    if (o.age < minAge) minAge = o.age;
-                    if (o.age > maxAge) maxAge = o.age;
-                    if (o.energy < minE) minE = o.energy;
-                    if (o.energy > maxE) maxE = o.energy;
-                    totalE += o.energy;
+            // o.println("Universe : tick " + age);
+            // Iterator<Organism> i = organisms.iterator();
+            // while(i.hasNext()) {
+            //     Organism o = i.next();
+            //     if (o == null) { throw new Error("got a null organism in organism list!"); }
+            //     // if (!o.fertile()) o.die();
+            //     if (o.dead) {
+            //         deadCount++;
+            //         i.remove();
+            //     } else {
+            //         if (o.age < minAge) minAge = o.age;
+            //         if (o.age > maxAge) maxAge = o.age;
+            //         if (o.energy < minE) minE = o.energy;
+            //         if (o.energy > maxE) maxE = o.energy;
+            //         totalE += o.energy;
 
-                    // if (!moreBabies && o.fertile()) moreBabies = true;
-                }
-            }
+            //         // if (!moreBabies && o.fertile()) moreBabies = true;
+            //     }
+            // }
 
             // double hour              = Math.sin(daily_energy_cycle * age) + 1.0;  // varies from 0.0 to 2.0
             // double date              = Math.sin(annual_energy_cycle * age) + 1.0; // varies from 0.0 to 2.0
@@ -220,11 +233,11 @@ public class Universe implements Global {
             // double energy_adjustment = 0.4 + (0.6 * energy_curve);                // varies from 0.3 to 1.0 so energy is never zero
             // double this_tick         = tick_energy * energy_adjustment;
 
-            for (Cell here : allCells) {
-                here.energy /= 2.0;
-                // here.energy += this_tick;
-                here.energy += tick_energy;
-            }
+            // for (Cell here : allCells) {
+            //     here.energy /= 2.0;
+            //     // here.energy += this_tick;
+            //     here.energy += tick_energy;
+            // }
 
             if (statsRequested) {
                 o.println(massStats());
@@ -245,6 +258,15 @@ public class Universe implements Global {
         }
     }
 
+    public List<Organism> getOrganisms() {
+        List<Organism> organisms = new ArrayList<Organism>();
+        for(Cell c : allCells) {
+            Organism o = c.getOrganism();
+            if (o != null) organisms.add(o);
+        }
+        return organisms;
+    }
+
     public String massStats() {
         Organism smallest = null;
         Organism biggest  = null;
@@ -261,9 +283,7 @@ public class Universe implements Global {
         Map<String, Integer>    gene_counts       = new HashMap<String, Integer>();
         String                  predators         = "";
 
-        for (Organism o : organisms) {
-            // if ((predStatsRequested && o.leafiness < 0.5) || !predStatsRequested) {
-            if (true) {
+        for (Organism o : getOrganisms()) {
                 if (o.age > maxA) { maxA = o.age; oldest  = o;  }
                 if (o.age < minA) { minA = o.age; newest = o; }
                 int lga = (int)Math.log(1 + o.age);
@@ -274,12 +294,6 @@ public class Universe implements Global {
 
                 DNA.stats(behaviour_counts, o.behaviours);
                 DNA.stats(gene_counts, o.genes);
-
-                // double leafy20 = ((int)(o.leafiness * 10)) / 10.0;
-                // Integer leafyc = leafinesses.get(leafy20);
-                // if (leafyc == null) { leafyc = 0; }
-                // leafinesses.put(leafy20, leafyc + 1);
-            }
         }
 
         String stats = "\n\n\n===================================================================\n\n";
@@ -298,9 +312,9 @@ public class Universe implements Global {
         stats += "Min age : "              + minA                + " on " + newest + "\n";
         stats += "Max age : "              + maxA                + " on " + oldest  + "\n";
         stats += "Age counts per log : "   + ages_by_log         + "\n\n";
-        stats += "Organism count : "       + organisms.size()    + "\n";
-        stats += "Dead this generation : " + deadCount           + "\n";
-        stats += "Born this generation : " + newBabies           + "";
+        stats += "Organism count : "       + total               + "\n";
+        stats += "Dead this generation : " + deaths              + "\n";
+        stats += "Born this generation : " + births              + "";
         // stats += predators;
 
         return stats;
@@ -308,12 +322,12 @@ public class Universe implements Global {
 
     public String population() {
         StringBuffer b = new StringBuffer();
-        for (Organism o : organisms) {
-            b.append(o.toString()).append(" ").append(o.age).append("\n");
-            for (Behaviour bh : o.behaviours) {
-                b.append("  ").append(bh).append("\n");
-            }
-        }
+        // for (Organism o : organisms) {
+        //     b.append(o.toString()).append(" ").append(o.age).append("\n");
+        //     for (Behaviour bh : o.behaviours) {
+        //         b.append("  ").append(bh).append("\n");
+        //     }
+        // }
 
         return b.toString();
     }

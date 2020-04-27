@@ -44,16 +44,16 @@ public class Main implements Global {
 
     public static void main(String[] args) throws Exception {
         DNA.init();
-        Config           config = new Config();
-        Universe              u = new Universe(config);
-        ToroidalGridPanel panel = new ToroidalGridPanel(u, config.pixel_size());
-        ImageCapture    capture = new ImageCapture(u, panel);
-        Info               info = new Info(u, panel);
-        // u.stopped = true;
+
+        final Config           config = new Config();
+        final Universe              u = new Universe(config);
+        final ToroidalGridPanel panel = new ToroidalGridPanel(u, config.pixel_size());
+        final ImageCapture    capture = new ImageCapture(u, panel);
+        final Info               info = new Info(u, panel);
+        final Controller            c = new Controller(u, config.threads());
+
         u.addListener(panel);
         u.addListener(capture);
-        u.restart();
-
 
         SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
@@ -79,14 +79,11 @@ public class Main implements Global {
                     frame.getContentPane().add(content);
                     frame.pack();
                     frame.setVisible(true);
+
+                    u.restart();
+                    new Thread(c).start();
                 }
             });
 
-        // int pool = config.threads();
-        // int pool = 2;
-        // for (int i = 0; i < pool; i++) {
-        //     new Thread().start();
-        // }
-        new Ticker(u, panel, info).run();
     }
 }
