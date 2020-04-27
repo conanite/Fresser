@@ -50,8 +50,6 @@ public class Attack extends SimpleBehaviour {
     }
 
     public static Organism attack(Organism attacker, Organism defender) {
-        if (true) { return defender; }
-
         Attack  a = Attack.get(attacker);
         Defence d = Defence.get(defender);
 
