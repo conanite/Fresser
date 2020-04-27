@@ -35,6 +35,10 @@ public class AbsorbSunlight extends SimpleBehaviour {
         return name + "(p=" + nf1.format(prob) + " e=" + nf1.format(energyShare) + ")";
     }
 
+    public String inspect() {
+        return name + "(p=" + nf2.format(prob) + " e=" + nf2.format(energyShare) + ")";
+    }
+
     public void tick() {
         Cell cell = org.cell;
 

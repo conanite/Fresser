@@ -36,6 +36,10 @@ public class Attack extends SimpleBehaviour {
         return name + "(e=" + nf1.format(energyShare) + ")";
     }
 
+    public String inspect() {
+        return name + "(e=" + nf2.format(energyShare) + ")";
+    }
+
     public void tick() {
         // double newenergy = org.newenergy;
         // double up = newenergy * energyShare;

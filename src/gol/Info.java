@@ -53,13 +53,15 @@ class Info implements UniverseListener, Global {
         // update();
     }
 
-    public void universeTicked()    { update(); }
+    public void universeTicked()    {
+        Instant now = Instant.now();
+        if (Duration.between(lastUpdate, now).toMillis() < 333) return;
+        lastUpdate = now;
+
+        update();
+    }
 
     public void update() {
-        Instant now = Instant.now();
-        long interval = Duration.between(lastUpdate, now).toMillis();
-        if (interval < 200) return;
-        lastUpdate = now;
 
         age.setText("Age " + universe.age + (universe.stopped ? " Stopped" : ""));
         organisms.setText("Organisms " + universe.total);
@@ -77,7 +79,7 @@ class Info implements UniverseListener, Global {
             Organism o = c.getOrganism();
             if (o != null) {
                 watching.setText("#" + o.id + " age " + o.age + " E=" + nf2.format(o.energy));
-                newenergy.setText(nf2.format(o.newenergy));
+                newenergy.setText("new energy: " + nf2.format(o.newenergy));
                 fission  .setText(geneString(Fission.get(o)));
                 eat      .setText(geneString(Eat.get(o)));
                 sunlight .setText(geneString(AbsorbSunlight.get(o)));
@@ -102,6 +104,6 @@ class Info implements UniverseListener, Global {
 
     String geneString(Behaviour b) {
         if (b == null) return "";
-        return b.toString();
+        return "<html>" + b.inspect() + "</html>";
     }
 }

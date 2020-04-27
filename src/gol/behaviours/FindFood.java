@@ -47,7 +47,7 @@ public class FindFood extends SimpleBehaviour {
     }
 
     public String inspect() {
-        return name + "(ft=" + nf1.format(familyThreshold) + " eat=" + eat + ")";
+        return name + "(ft=" + nf2.format(familyThreshold) + " eat=" + eat + ")";
     }
 
     public void tick() {

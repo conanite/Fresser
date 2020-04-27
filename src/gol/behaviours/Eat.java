@@ -52,7 +52,9 @@ public class Eat extends SimpleBehaviour {
 
     public String inspect() {
         if (food != null) {
-            return name + "(p=" + nf2.format(prob) + " e=" + nf2.format(energyShare) + " food=" + food + " food address=" + food.cell.coordinate + ")";
+            Cell cell = food.cell;
+            Coordinate addr = (cell != null) ? cell.coordinate : null;
+            return name + "(p=" + nf2.format(prob) + " e=" + nf2.format(energyShare) + " food=" + food + " food address=" + addr + ")";
         } else {
             return name + "(p=" + nf2.format(prob) + " e=" + nf2.format(energyShare) + " food=" + food + ")";
         }
