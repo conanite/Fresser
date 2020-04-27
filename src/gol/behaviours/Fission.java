@@ -48,15 +48,15 @@ public class Fission extends SimpleBehaviour {
 
         if (cell.getOrganism() != null) {
             cell = org.cell.pickANeighbour(org.universe.reach_length, org.random.nextDouble());
+            if (cell.getOrganism() != null) {
+                cell = org.cell.pickANeighbour(org.universe.reach_length, org.random.nextDouble());
+                if (cell.getOrganism() != null) {
+                    return;
+                }
+            }
+
         }
 
-        if (cell.getOrganism() != null) {
-            cell = org.cell.pickANeighbour(org.universe.reach_length, org.random.nextDouble());
-        }
-
-        if (cell.getOrganism() != null) {
-            return;
-        }
 
         Organism baby        = new Organism(org.universe, cell, DNA.mutate(org.random, org.genes), org.random);
         baby.food_colour     = DNA.mutate(org.random, org.food_colour);
