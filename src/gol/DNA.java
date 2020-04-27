@@ -51,8 +51,12 @@ public class DNA {
         addGene(Fission.gene);
         addGene(Fission.fissionMore   );
         addGene(Fission.fissionMore   );
+        addGene(Fission.fissionMore   );
+        addGene(Fission.fissionMore   );
         addGene(Fission.fissionLess   );
         addGene(Fission.fissionLess   );
+        addGene(Fission.fissionBigger );
+        addGene(Fission.fissionBigger );
         addGene(Fission.fissionBigger );
         addGene(Fission.fissionBigger );
         addGene(Fission.fissionSmaller);
@@ -77,8 +81,12 @@ public class DNA {
 
         addGene(AbsorbSunlight.growMore);
         addGene(AbsorbSunlight.growMore);
+        addGene(AbsorbSunlight.growMore);
+        addGene(AbsorbSunlight.growMore);
         addGene(AbsorbSunlight.growLess);
         addGene(AbsorbSunlight.growLess);
+        addGene(AbsorbSunlight.growFaster);
+        addGene(AbsorbSunlight.growFaster);
         addGene(AbsorbSunlight.growFaster);
         addGene(AbsorbSunlight.growFaster);
         addGene(AbsorbSunlight.growSlower);
@@ -86,17 +94,21 @@ public class DNA {
 
         addGene(FindFood.gene);
         addGene(FindFood.gene);
-        addGene(FindFood.gene);
-        addGene(FindFood.gene);
+        // addGene(FindFood.gene);
+        // addGene(FindFood.gene);
         addGene(FindFood.avoidFamilyMore);
         addGene(FindFood.avoidFamilyMore);
         addGene(FindFood.avoidFamilyLess);
         addGene(FindFood.avoidFamilyLess);
 
         addGene(Attack.gene);
+        addGene(Attack.gene);
+        addGene(Attack.gene);
         addGene(Attack.attackMore);
         addGene(Attack.attackLess);
 
+        addGene(Defence.gene);
+        addGene(Defence.gene);
         addGene(Defence.gene);
         addGene(Defence.defendMore);
         addGene(Defence.defendLess);
@@ -173,17 +185,17 @@ public class DNA {
     public static Gene[] predefined(SplittableRandom random, int n) {
         return new Gene[] {
             AbsorbSunlight.gene,
-            AbsorbSunlight.gene,
-            AbsorbSunlight.gene,
-            AbsorbSunlight.gene,
-            AbsorbSunlight.gene,
+            AbsorbSunlight.growMore,
+            AbsorbSunlight.growMore,
+            AbsorbSunlight.growFaster,
+            AbsorbSunlight.growFaster,
             Fission.gene,
             Fission.fissionMore,
             Fission.fissionMore,
             Fission.fissionMore,
             Fission.fissionMore,
-            Fission.fissionMore,
-            Fission.fissionMore,
+            Fission.fissionBigger,
+            Fission.fissionBigger,
             FindFood.gene,
             FindFood.gene,
             FindFood.gene,
@@ -202,13 +214,15 @@ public class DNA {
             Eat.greedy,
             Eat.greedy,
             Attack.gene,
+            Attack.gene,
             Attack.attackMore,
             Attack.attackMore,
-            Attack.attackMore,
-            Attack.attackMore,
+            Attack.attackLess,
+            Defence.gene,
             Defence.gene,
             Defence.defendMore,
             Defence.defendMore,
+            Defence.defendLess,
         };
 
     }
@@ -219,9 +233,9 @@ public class DNA {
         }
 
         Gene[] gene = new Gene[n];
-        gene[0] = Defence.gene;
+        // gene[0] = Defence.gene;
 
-        for (int i = 1 ; i < n ; i++) {
+        for (int i = 0 ; i < n ; i++) {
             gene[i] = nextLetter(random);
         }
 
