@@ -93,13 +93,13 @@ public class DNA {
         addGene(FindFood.avoidFamilyLess);
         addGene(FindFood.avoidFamilyLess);
 
-        // addGene(Attack.gene);
-        // addGene(Attack.attackMore);
-        // addGene(Attack.attackLess);
+        addGene(Attack.gene);
+        addGene(Attack.attackMore);
+        addGene(Attack.attackLess);
 
-        // addGene(Defence.gene);
-        // addGene(Defence.defendMore);
-        // addGene(Defence.defendLess);
+        addGene(Defence.gene);
+        addGene(Defence.defendMore);
+        addGene(Defence.defendLess);
 
     }
 
@@ -206,6 +206,9 @@ public class DNA {
             Attack.attackMore,
             Attack.attackMore,
             Attack.attackMore,
+            Defence.gene,
+            Defence.defendMore,
+            Defence.defendMore,
         };
 
     }
@@ -216,8 +219,9 @@ public class DNA {
         }
 
         Gene[] gene = new Gene[n];
+        gene[0] = Defence.gene;
 
-        for (int i = 0 ; i < n ; i++) {
+        for (int i = 1 ; i < n ; i++) {
             gene[i] = nextLetter(random);
         }
 
