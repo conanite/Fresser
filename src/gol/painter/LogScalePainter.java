@@ -4,6 +4,7 @@ import java.awt.Color;
 import gol.*;
 
 public abstract class LogScalePainter implements CellPainter {
+    public static final Double ZERO = new Double(0.0);
     protected double log_diff;
     protected double max;
     protected double min;

@@ -9,7 +9,7 @@ public class AbsorbSunlightPainter extends LogScalePainter {
         if (org == null) return null;
 
         AbsorbSunlight e = AbsorbSunlight.get(org);
-        if (e == null) return null;
+        if (e == null) return ZERO;
 
         return e.amount();
     }

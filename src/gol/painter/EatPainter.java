@@ -10,7 +10,7 @@ public class EatPainter extends LogScalePainter {
         if (org == null) return null;
 
         Eat e = Eat.get(org);
-        if (e == null) return null;
+        if (e == null) return ZERO;
 
         return e.amount();
     }

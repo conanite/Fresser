@@ -10,7 +10,7 @@ public class FissionPainter extends LogScalePainter {
         if (org == null) return null;
 
         Fission e = Fission.get(org);
-        if (e == null) return null;
+        if (e == null) return ZERO;
 
         return e.amount();
     }
