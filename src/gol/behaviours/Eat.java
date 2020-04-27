@@ -52,9 +52,9 @@ public class Eat extends SimpleBehaviour {
 
     public String inspect() {
         if (food != null) {
-            return name + "(p=" + nf1.format(prob) + " e=" + nf1.format(energyShare) + " food=" + food + " food address=" + food.cell + ")";
+            return name + "(p=" + nf2.format(prob) + " e=" + nf2.format(energyShare) + " food=" + food + " food address=" + food.cell.coordinate + ")";
         } else {
-            return name + "(p=" + nf1.format(prob) + " e=" + nf1.format(energyShare) + " food=" + food + ")";
+            return name + "(p=" + nf2.format(prob) + " e=" + nf2.format(energyShare) + " food=" + food + ")";
         }
     }
 
@@ -71,7 +71,6 @@ public class Eat extends SimpleBehaviour {
     }
 
     public void eat(Organism prey) {
-
         prey = Attack.attack(org, prey);
         if (prey == null) return;
 
