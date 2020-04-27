@@ -29,7 +29,7 @@ public class Defence extends SimpleBehaviour {
 
     public Defence(Organism org) {
         super(org);
-        this.energyShare = 0.7;
+        this.energyShare = 0.6;
     }
 
     public String toString() {

@@ -29,7 +29,7 @@ public class Attack extends SimpleBehaviour {
 
     public Attack(Organism org) {
         super(org);
-        this.energyShare = 0.3;
+        this.energyShare = 0.4;
     }
 
     public String toString() {
