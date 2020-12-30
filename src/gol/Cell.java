@@ -3,17 +3,19 @@ package gol;
 import java.util.*;
 
 public class Cell implements Tickable {
-    private final    Universe   universe;
-    public  final    Coordinate coordinate;
-    public  final    List<Cell> neighbours                 = new ArrayList<Cell>(315); // enough for d=10 (10^2 * 3.14)
-    public  final    List<Cell>[] neighbourListsByDistance = (List<Cell>[])(new List[40]);
-    public  double   energy                                = 0.0d;
-    private Organism organism;
-    public  Ribbon   ribbon;
+    private final    Universe         universe;
+    public  final    Coordinate       coordinate;
+    public  final    SplittableRandom random;
+    public  final    List<Cell>       neighbours               = new ArrayList<Cell>(315); // enough for d=10 (10^2 * 3.14)
+    public  final    List<Cell>[]     neighbourListsByDistance = (List<Cell>[])(new List[40]);
+    public           double           energy                   = 0.0d;
+    private          Organism         organism;
+    public           Ribbon           ribbon;
 
-    public Cell(Universe u, Coordinate co) {
+    public Cell(Universe u, Coordinate co, SplittableRandom random) {
         this.universe   = u;
         this.coordinate = co;
+        this.random     = random;
     }
 
     public void init(List<Coordinate> nearby) {

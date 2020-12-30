@@ -14,7 +14,7 @@ public class AvoidEatingWhenNotHungry implements Behaviour {
         // Iterator<Organism> i = org.candidatePrey.iterator();
         // while(i.hasNext()) {
         //     Organism prey = i.next();
-        //     if (org.random.nextDouble() < 0.1) { // remove 10% of potential prey
+        //     if (org.rand() < 0.1) { // remove 10% of potential prey
         //         i.remove();
         //     }
         // }

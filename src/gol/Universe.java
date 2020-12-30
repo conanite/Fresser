@@ -59,7 +59,7 @@ public class Universe implements Global {
         for (int i = 0; i < edge; i++) {
             for (int j = 0; j < edge; j++) {
                 Coordinate    co = new Coordinate(this, i, j);
-                Cell        cell = new Cell(this, co);
+                Cell        cell = new Cell(this, co, random.split());
                 this.cells[i][j] = cell;
 
                 int idx                = (i * edge) + j;
@@ -158,10 +158,10 @@ public class Universe implements Global {
                 cell.energy = tick_energy;
 
                 if (random.nextDouble() < config.genesis_prob()) {
-                    Organism o        = new Organism(this, cell, DNA.randomGenes(random, config.default_gene_length()), random);
-                    o.food_colour     = DNA.randomColor(random);
-                    o.my_colour       = DNA.randomColor(random);
-                    o.predator_colour = DNA.randomColor(random);
+                    Organism o        = new Organism(this, cell, DNA.randomGenes(random, config.default_gene_length()));
+                    o.food_colour     = Appearance.randomColor(random);
+                    o.my_colour       = Appearance.randomColor(random);
+                    o.predator_colour = Appearance.randomColor(random);
                     o.addEnergy("genesis", config.initial_energy());
                     // addOrganism(o);
                     cell.setOrganism(o);
@@ -181,9 +181,17 @@ public class Universe implements Global {
         stepped = false;
         for (UniverseListener listener : listeners) { listener.universeTicked(); }
         while(stopped && !stepped) { Thread.yield(); Thread.sleep(100); }
-        if (age % 1000 == 0) {
+        if (age % 100 == 0) {
+            double total_nrg = 0.0;
+            for (Cell cell : allCells) {
+                if (cell.getOrganism() != null) {
+                    total_nrg += cell.getOrganism().energy;
+                }
+            }
+
+
             long time = Duration.between(now, Instant.now()).toMillis();
-            o.println("time to " + age + " generations: " + time);
+            o.println("time to " + age + " generations: " + time + ", total energy " + total_nrg);
             // requestRestart();
         }
     }

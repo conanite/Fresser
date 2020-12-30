@@ -55,22 +55,21 @@ class Info implements UniverseListener, Global {
 
     public void universeTicked()    {
         Instant now = Instant.now();
-        if (Duration.between(lastUpdate, now).toMillis() < 333) return;
+        if (Duration.between(lastUpdate, now).toMillis() < 1000) return;
         lastUpdate = now;
 
         update();
     }
 
     public void update() {
-
         age.setText("Age " + universe.age + (universe.stopped ? " Stopped" : ""));
         organisms.setText("Organisms " + universe.total);
         births.setText("Births +" + universe.births);
         deaths.setText("Deaths -" + universe.deaths);
         runtime.setText("Runtime " + (Duration.between(universe.now, Instant.now()).toMillis() / 1000));
-        view.setText("Showing " + tgp.colourify);
+        view.setText("Showing " + tgp.tgip.colourify);
 
-        Coordinate lookingAt = tgp.lookingAt();
+        Coordinate lookingAt = tgp.tgip.lookingAt();
         if (lookingAt != null) {
             Cell c = universe.getCell(lookingAt);
 

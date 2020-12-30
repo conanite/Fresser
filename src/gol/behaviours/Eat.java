@@ -61,7 +61,7 @@ public class Eat extends SimpleBehaviour {
     }
 
     public void tick() {
-        boolean doit = org.random.nextDouble() < prob;
+        boolean doit = org.rand() < prob;
         if (!doit) return;
 
         if (food == org || food == null || food.dead || food.cell == null) {

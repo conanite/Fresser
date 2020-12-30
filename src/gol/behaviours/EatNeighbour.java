@@ -22,7 +22,7 @@ public class EatNeighbour extends Eat implements Behaviour {
         // o.println("reachLength is " + org.reachLength);
         // o.println("reach.size() is " + org.reach.size());
 
-        Cell dest = org.cell.pickANeighbour(org.universe.reach_length, org.random.nextDouble());
+        Cell dest = org.cell.pickANeighbour(org.universe.reach_length, org.rand());
 
         eat(org, dest.organism);
     }

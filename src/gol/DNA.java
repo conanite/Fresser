@@ -128,13 +128,6 @@ public class DNA {
         }
     }
 
-    public static Color randomColor(SplittableRandom random) {
-        float r = (float)((random.nextDouble() * 0.4) + 0.5);
-        float g = (float)((random.nextDouble() * 0.4) + 0.5);
-        float b = (float)((random.nextDouble() * 0.4) + 0.5);
-        return new Color(r, g, b, 1.0f);
-    }
-
     public static Color mutate(SplittableRandom random, Color color) {
         float r = (float)mutateColorChannel(random, color.getRed()  / 255.0);
         float g = (float)mutateColorChannel(random, color.getGreen()/ 255.0);

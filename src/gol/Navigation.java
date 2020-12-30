@@ -15,20 +15,20 @@ public class Navigation extends KeyAdapter implements Global {
 
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_KP_UP) {
-            panel.scroll(1, 0);
+            panel.tgip.scroll(1, 0);
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_KP_DOWN) {
-            panel.scroll(-1, 0);
+            panel.tgip.scroll(-1, 0);
         } else if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_KP_LEFT) {
-            panel.scroll(0, 1);
+            panel.tgip.scroll(0, 1);
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_KP_RIGHT) {
-            panel.scroll(0, -1);
+            panel.tgip.scroll(0, -1);
         } else if (e.getKeyChar() == 'b') {
-            if (panel.bgColour == "dark") {
-                panel.bgColour = "medium";
-            } else if (panel.bgColour == "medium") {
-                panel.bgColour = "bright";
+            if (panel.tgip.bgColour == "dark") {
+                panel.tgip.bgColour = "medium";
+            } else if (panel.tgip.bgColour == "medium") {
+                panel.tgip.bgColour = "bright";
             } else {
-                panel.bgColour = "dark";
+                panel.tgip.bgColour = "dark";
             }
         } else if (e.getKeyChar() == ' ') {
             panel.universe.stepped = true;
@@ -45,11 +45,11 @@ public class Navigation extends KeyAdapter implements Global {
         } else if (e.getKeyChar() == 's') {
             panel.universe.stopped    = !panel.universe.stopped;
         } else if (e.getKeyChar() == 'v') {
-            panel.colourify = panel.colourify.next();
-            o.println("View is " + panel.colourify);
+            panel.tgip.colourify = panel.tgip.colourify.next();
+            o.println("View is " + panel.tgip.colourify);
         } else if (e.getKeyChar() == 'V') {
-            panel.colourify = panel.colourify.previous();
-            o.println("View is " + panel.colourify);
+            panel.tgip.colourify = panel.tgip.colourify.previous();
+            o.println("View is " + panel.tgip.colourify);
         } else if (e.getKeyChar() == 'R') {
             panel.universe.requestRestart();
         } else if (e.getKeyChar() == 'z') {
@@ -60,7 +60,7 @@ public class Navigation extends KeyAdapter implements Global {
             // o.println("Going Somewhere: " + e.getKeyChar());
         }
 
-        panel.requireRedraw();
+        panel.tgip.requireRedraw();
         info.update();
     }
 }

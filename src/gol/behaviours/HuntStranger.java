@@ -11,7 +11,7 @@ public class HuntStranger extends Approach implements Behaviour {
     }
 
     public void tick(Organism org) {
-        // if (org.random.nextDouble() > org.stockiness || org.reachLength < 1) return;
+        // if (org.rand() > org.stockiness || org.reachLength < 1) return;
 
         // double strangeness = -Double.MAX_VALUE; // lower is tastier
         // Organism strangest = null;

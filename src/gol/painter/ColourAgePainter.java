@@ -10,7 +10,9 @@ public class ColourAgePainter extends Age {
 
         Organism org = cell.getOrganism();
 
-        float scale = getLogScaleValue(min, org.age, log_diff);
+        // float scale = getLogScaleValue(min, org.age, log_diff);
+        // float scale = getLinearSquaredScaleValue(min, org.age, max);
+        float scale = getScaled(min, v, max, log_diff);
         return(Appearance.darkify(org.my_colour, scale));
     }
 }

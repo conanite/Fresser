@@ -47,7 +47,7 @@ public class FindFood extends SimpleBehaviour {
     }
 
     public String inspect() {
-        return name + "(ft=" + nf2.format(familyThreshold) + " eat=" + eat + ")";
+        return name + "(ft=" + nf2.format(familyThreshold) + ")";
     }
 
     public void tick() {
@@ -69,14 +69,14 @@ public class FindFood extends SimpleBehaviour {
     }
 
     Organism findNeighbour(Organism org) {
-        Cell cell = org.cell.pickANeighbour(org.universe.reach_length, org.random.nextDouble());
+        Cell cell = org.cell.pickANeighbour(org.universe.reach_length, org.rand());
 
         if (cell.getOrganism() == null) {
-            cell = org.cell.pickANeighbour(org.universe.reach_length, org.random.nextDouble());
+            cell = org.cell.pickANeighbour(org.universe.reach_length, org.rand());
         }
 
         if (cell.getOrganism() == null) {
-            cell = org.cell.pickANeighbour(org.universe.reach_length, org.random.nextDouble());
+            cell = org.cell.pickANeighbour(org.universe.reach_length, org.rand());
         }
 
         return cell.getOrganism();

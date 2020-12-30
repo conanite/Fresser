@@ -13,7 +13,7 @@ public class AbsorbNeighbourCellEnergy extends AbsorbCellEnergy implements Behav
     }
 
     public void tick(Organism org) {
-        // if (org.random.nextDouble() > org.photosynth) return;
+        // if (org.rand() > org.photosynth) return;
 
         // for (Cell target : org.neighbours()) {
         //     absorbEnergyFrom(org, target);

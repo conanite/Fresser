@@ -37,19 +37,23 @@ public class Fission extends SimpleBehaviour {
         return name + "(p=" + nf1.format(prob) + " e=" + nf1.format(energyShare) + ")";
     }
 
+    public String inspect() {
+        return name + "(p=" + nf2.format(prob) + " e=" + nf2.format(energyShare) + ")";
+    }
+
     public void tick() {
-        boolean doit = org.random.nextDouble() < prob;
+        boolean doit = org.rand() < prob;
         if (!doit) return;
 
         doit = org.age % fertilityCycle == 0;
         if (!doit) return;
 
-        Cell cell = org.cell.pickANeighbour(org.universe.reach_length, org.random.nextDouble());
+        Cell cell = org.cell.pickANeighbour(org.universe.reach_length, org.rand());
 
         if (cell.getOrganism() != null) {
-            cell = org.cell.pickANeighbour(org.universe.reach_length, org.random.nextDouble());
+            cell = org.cell.pickANeighbour(org.universe.reach_length, org.rand());
             if (cell.getOrganism() != null) {
-                cell = org.cell.pickANeighbour(org.universe.reach_length, org.random.nextDouble());
+                cell = org.cell.pickANeighbour(org.universe.reach_length, org.rand());
                 if (cell.getOrganism() != null) {
                     return;
                 }
@@ -58,10 +62,10 @@ public class Fission extends SimpleBehaviour {
         }
 
 
-        Organism baby        = new Organism(org.universe, cell, DNA.mutate(org.random, org.genes), org.random);
-        baby.food_colour     = DNA.mutate(org.random, org.food_colour);
-        baby.my_colour       = DNA.mutate(org.random, org.my_colour);
-        baby.predator_colour = DNA.mutate(org.random, org.predator_colour);
+        Organism baby        = new Organism(org.universe, cell, DNA.mutate(cell.random, org.genes));
+        baby.food_colour     = DNA.mutate(cell.random, org.food_colour);
+        baby.my_colour       = DNA.mutate(cell.random, org.my_colour);
+        baby.predator_colour = DNA.mutate(cell.random, org.predator_colour);
 
         double energy = org.energy * energyShare;
 

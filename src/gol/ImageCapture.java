@@ -18,8 +18,8 @@ class ImageCapture implements UniverseListener, Global {
     public ImageCapture(Universe u, ToroidalGridPanel panel) {
         this.universe = u;
         this.panel = panel;
-        this.image_save_trigger      = u.config.image_save_trigger();
-        this.image_save_min_interval = u.config.image_save_min_interval();
+        this.image_save_trigger      = u.config.capture_trigger();
+        this.image_save_min_interval = u.config.capture_interval_min();
         this.image_save_cell_count   = (int)(u.edge * u.edge * image_save_trigger);
     }
 
@@ -45,7 +45,7 @@ class ImageCapture implements UniverseListener, Global {
         String index = int7.format(universe.age);
         File outputfile = new File("pix/life-" + uni_id + "/" + index + ".png");
         try {
-            ImageIO.write(panel.getImage(), "png", outputfile);
+            ImageIO.write(panel.tgip.getImage(), "png", outputfile);
         } catch (IOException ioe) {
             o.println("couldn't write file " + outputfile);
             o.println(ioe);

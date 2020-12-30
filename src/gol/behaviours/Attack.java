@@ -58,8 +58,8 @@ public class Attack extends SimpleBehaviour {
 
         if (a.attacked == defender) { return defender; } // we've done this already and attacker won
 
-        double ae = attacker.random.nextDouble() * a.energyShare;
-        double de = defender.random.nextDouble() * d.energyShare;
+        double ae = attacker.rand() * a.energyShare;
+        double de = defender.rand() * d.energyShare;
 
         if (de >= ae) { // defence is bigger : wins
             attacker.energy -= ae * attacker.energy;

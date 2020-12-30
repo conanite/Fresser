@@ -44,7 +44,7 @@ public class AbsorbSunlight extends SimpleBehaviour {
 
         if (cell.energy < 1.0) return;
 
-        boolean doit = org.random.nextDouble() < prob;
+        boolean doit = org.rand() < prob;
         if (!doit) return;
 
         double avail   = cell.energy * energyShare;

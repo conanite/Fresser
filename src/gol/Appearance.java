@@ -1,5 +1,6 @@
 package gol;
 
+import java.util.*;
 import java.awt.Color;
 
 public class Appearance {
@@ -20,6 +21,13 @@ public class Appearance {
         float r = (float)((c.getRed()   * scale) / 255.0);
         float g = (float)((c.getGreen() * scale) / 255.0);
         float b = (float)((c.getBlue()  * scale) / 255.0);
-        return new Color(norm(r),norm(g),norm(b));
+        return build(r,g,b);
+    }
+
+    public static Color randomColor(SplittableRandom random) {
+        float r = (float)((random.nextDouble() * 0.4) + 0.5);
+        float g = (float)((random.nextDouble() * 0.4) + 0.5);
+        float b = (float)((random.nextDouble() * 0.4) + 0.5);
+        return new Color(r, g, b, 1.0f);
     }
 }

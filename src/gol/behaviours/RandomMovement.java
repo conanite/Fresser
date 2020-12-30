@@ -15,7 +15,7 @@ public class RandomMovement implements Behaviour {
     public void tick(Organism org) {
         // double mobility = org.stockiness * org.stockiness;
 
-        // if (org.random.nextDouble() > mobility || org.reachLength < 1) return;
+        // if (org.rand() > mobility || org.reachLength < 1) return;
 
         // Cell         dest = org.reach.get(org.random.nextInt(1, org.reach.size()));
         // double          d = dest.distanceSq(org.cell);

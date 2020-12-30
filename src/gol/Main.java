@@ -7,41 +7,6 @@ import java.util.*;
 import javax.swing.*;
 
 public class Main implements Global {
-    static class Pointer extends MouseAdapter implements Global {
-        public final ToroidalGridPanel panel;
-        public final Info              info;
-        public       Organism          watching;
-
-        public Pointer(ToroidalGridPanel panel, Info info) {
-            this.panel = panel;
-            this.info = info;
-        }
-
-        public void mouseMoved(MouseEvent e) {
-            panel.pointingAt(e.getPoint());
-            info.update();
-            panel.requireRedraw();
-        }
-
-        public void mouseClicked(MouseEvent e) {
-            if (watching != null) {
-                watching.watching = false;
-                watching = null;
-            }
-            Coordinate co = panel.getUniverseCoordinate(e.getPoint());
-            Cell     cell = panel.universe.getCell(co);
-            Organism  org = cell.getOrganism();
-
-            o.println(cell);
-
-            if (org != null) {
-                org.watching = true;
-                watching     = org;
-                o.println(MapToString.toString(org.status()));
-            }
-        }
-    }
-
     public static void main(String[] args) throws Exception {
         DNA.init();
 
@@ -51,6 +16,8 @@ public class Main implements Global {
         final ImageCapture    capture = new ImageCapture(u, panel);
         final Info               info = new Info(u, panel);
         final Controller            c = new Controller(u, config.threads());
+
+        new javax.swing.Timer(1000, new PanelRepainter(panel)).start();
 
         u.addListener(panel);
         u.addListener(capture);
@@ -62,7 +29,7 @@ public class Main implements Global {
                     frame.setLocation(800, 0);
 
                     panel.addKeyListener(new Navigation(panel, info));
-                    Pointer pointer = new Pointer(panel, info);
+                    PanelPointer pointer = new PanelPointer(panel, info);
                     panel.addMouseListener(pointer);
                     panel.addMouseMotionListener(pointer);
 

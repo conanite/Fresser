@@ -11,7 +11,6 @@ public class Organism implements Tickable, Global {
     public final  Universe         universe;
     public final  Gene[]           genes;
     public final  int              id;
-    public final  SplittableRandom random;
     public        Cell             cell;
     public        boolean          dead          = false;
     public        boolean          watching      = false;
@@ -28,19 +27,18 @@ public class Organism implements Tickable, Global {
     public final List<String>        history       = new ArrayList<String>();
     public final Map<String, Object> blackboard    = new HashMap<String, Object>();
 
-    public Organism(Universe u, Cell cell, Gene[] genes, SplittableRandom random) {
+    public Organism(Universe u, Cell cell, Gene[] genes) {
         this.id         = Organism.index++;
         this.universe   = u;
         this.cell       = cell;
         this.genes      = genes;
-        this.random     = random.split();
 
         for (Gene g : genes) { g.install(this); }
 
         this.cell.notifyBirth();
-        // this.watching = (id % 1000) == 0;
-        // this.watching   = random.nextDouble() < u.config.watching();
     }
+
+    public double rand() { return cell.random.nextDouble(); }
 
     public List<Cell> neighbours() {
         return cell.getNeighbours((int)universe.reach_length);
