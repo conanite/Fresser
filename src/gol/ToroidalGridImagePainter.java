@@ -36,7 +36,9 @@ public class ToroidalGridImagePainter {
         this.painters.put(ShowStyle.eat          , new EatPainter());
         this.painters.put(ShowStyle.fission      , new FissionPainter());
         this.painters.put(ShowStyle.attack       , new AttackPainter());
+        this.painters.put(ShowStyle.attackb      , new AttackBPainter());
         this.painters.put(ShowStyle.defend       , new DefendPainter());
+        this.painters.put(ShowStyle.defendb      , new DefendBPainter());
         this.painters.put(ShowStyle.energy       , new EnergyPainter());
         this.painters.put(ShowStyle.ground_energy, new GroundEnergyPainter());
         this.painters.put(ShowStyle.colour       , new ColourPainter());

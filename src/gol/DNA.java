@@ -107,11 +107,23 @@ public class DNA {
         addGene(Attack.attackMore);
         addGene(Attack.attackLess);
 
+        addGene(AttackB.gene);
+        addGene(AttackB.gene);
+        addGene(AttackB.gene);
+        addGene(AttackB.attackMore);
+        addGene(AttackB.attackLess);
+
         addGene(Defence.gene);
         addGene(Defence.gene);
         addGene(Defence.gene);
         addGene(Defence.defendMore);
         addGene(Defence.defendLess);
+
+        addGene(DefenceB.gene);
+        addGene(DefenceB.gene);
+        addGene(DefenceB.gene);
+        addGene(DefenceB.defendMore);
+        addGene(DefenceB.defendLess);
 
     }
 
